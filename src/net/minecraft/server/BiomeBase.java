@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class BiomeBase {
 
     public static final BiomeBase RAINFOREST = (new BiomeRainforest()).b(588342).a("Rainforest").a(2094168);
@@ -48,7 +50,9 @@ public class BiomeBase {
         this.t.add(new BiomeMeta(EntityPig.class, 10));
         this.t.add(new BiomeMeta(EntityChicken.class, 10));
         this.t.add(new BiomeMeta(EntityCow.class, 8));
-        this.u.add(new BiomeMeta(EntitySquid.class, 10));
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_squids", true))
+        	this.u.add(new BiomeMeta(EntitySquid.class, 10));
     }
 
     private BiomeBase e() {

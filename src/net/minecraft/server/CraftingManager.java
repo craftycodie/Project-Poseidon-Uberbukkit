@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class CraftingManager {
 
     private static final CraftingManager a = new CraftingManager();
@@ -31,14 +33,40 @@ public class CraftingManager {
         this.registerShapedRecipe(new ItemStack(Block.SNOW_BLOCK, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.SNOW_BALL});
         this.registerShapedRecipe(new ItemStack(Block.CLAY, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.CLAY_BALL});
         this.registerShapedRecipe(new ItemStack(Block.BRICK, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.CLAY_BRICK});
-        this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.GLOWSTONE_DUST});
-        this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.STRING});
+
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.glowstone_pre1_6_6", false)) {
+        	this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.GLOWSTONE_DUST});
+        } else {
+        	this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.GLOWSTONE_DUST});
+        }
+
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.wool_recipe_pre1_6_6", false)) {
+        	this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.STRING});
+        } else {
+        	this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.STRING});
+        }
+
         this.registerShapedRecipe(new ItemStack(Block.TNT, 1), new Object[] { "X#X", "#X#", "X#X", Character.valueOf('X'), Item.SULPHUR, Character.valueOf('#'), Block.SAND});
-        this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 3), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
-        this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 0), new Object[] { "###", Character.valueOf('#'), Block.STONE});
+
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.old_slab_recipe", false)) {
+        	this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 0), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
+        } else {
+        	this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 3), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
+            this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 0), new Object[] { "###", Character.valueOf('#'), Block.STONE});
+        }
+
         this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 1), new Object[] { "###", Character.valueOf('#'), Block.SANDSTONE});
         this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 2), new Object[] { "###", Character.valueOf('#'), Block.WOOD});
-        this.registerShapedRecipe(new ItemStack(Block.LADDER, 2), new Object[] { "# #", "###", "# #", Character.valueOf('#'), Item.STICK});
+
+        // uberbukkit
+        ItemStack ladder = new ItemStack(Block.LADDER, 2);
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_ladder_gap", false)) {
+        	ladder = new ItemStack(Block.LADDER, 1);
+        }
+        this.registerShapedRecipe(ladder, new Object[] { "# #", "###", "# #", Character.valueOf('#'), Item.STICK});
+
         this.registerShapedRecipe(new ItemStack(Item.WOOD_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Block.WOOD});
         this.registerShapedRecipe(new ItemStack(Block.TRAP_DOOR, 2), new Object[] { "###", "###", Character.valueOf('#'), Block.WOOD});
         this.registerShapedRecipe(new ItemStack(Item.IRON_DOOR, 1), new Object[] { "##", "##", "##", Character.valueOf('#'), Item.IRON_INGOT});

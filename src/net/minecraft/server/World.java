@@ -1,5 +1,17 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockState;
@@ -16,7 +28,7 @@ import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.generator.ChunkGenerator;
 
-import java.util.*;
+import com.legacyminecraft.poseidon.PoseidonConfig;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -1933,16 +1945,19 @@ public class World implements IBlockAccess {
                         // CraftBukkit end
                     }
 
-                    // CraftBukkit start
-                        if (l1 == Block.STATIONARY_WATER.id && chunk.getData(l, k1 - 1, j1) == 0) {
-                            BlockState blockState = this.getWorld().getBlockAt(l + i, k1 - 1, j1 + j).getState();
-                            blockState.setTypeId(Block.ICE.id);
+                    // uberbukkit
+                    boolean blocked = PoseidonConfig.getInstance().getBoolean("version.mechanics.ice_generate_only_when_snowing", false) && !this.v();
 
-                            BlockFormEvent iceBlockForm = new BlockFormEvent(blockState.getBlock(), blockState);
-                            this.getServer().getPluginManager().callEvent(iceBlockForm);
-                            if (!iceBlockForm.isCancelled()) {
-                                blockState.update(true);
-                            }
+                    // CraftBukkit start
+                    if (!blocked && l1 == Block.STATIONARY_WATER.id && chunk.getData(l, k1 - 1, j1) == 0) {
+                    	BlockState blockState = this.getWorld().getBlockAt(l + i, k1 - 1, j1 + j).getState();
+                    	blockState.setTypeId(Block.ICE.id);
+
+                    	BlockFormEvent iceBlockForm = new BlockFormEvent(blockState.getBlock(), blockState);
+                    	this.getServer().getPluginManager().callEvent(iceBlockForm);
+                    	if (!iceBlockForm.isCancelled()) {
+                    		blockState.update(true);
+                    	}
                     }
                     // CraftBukkit end
                 }
@@ -2387,7 +2402,11 @@ public class World implements IBlockAccess {
     }
 
     public boolean v() {
-        return (double) this.d(1.0F) > 0.2D;
+    	// uberbukkit
+    	if (PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true))
+    		return (double) this.d(1.0F) > 0.2D;
+
+    	return false;
     }
 
     public boolean s(int i, int j, int k) {

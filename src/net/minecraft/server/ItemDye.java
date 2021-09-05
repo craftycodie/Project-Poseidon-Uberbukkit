@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import com.legacyminecraft.poseidon.PoseidonConfig;
+
 public class ItemDye extends Item {
 
     public static final String[] a = new String[] { "black", "red", "green", "brown", "blue", "purple", "cyan", "silver", "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"};
@@ -53,7 +55,8 @@ public class ItemDye extends Item {
                         }
 
                         if (world.getTypeId(k1, l1, i2) == 0) {
-                            if (b.nextInt(10) != 0) {
+                        	// uberbukkit
+                            if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_grow_tallgrass", true) && b.nextInt(10) != 0) {
                                 world.setTypeIdAndData(k1, l1, i2, Block.LONG_GRASS.id, 1);
                             } else if (b.nextInt(3) != 0) {
                                 world.setTypeId(k1, l1, i2, Block.YELLOW_FLOWER.id);

@@ -171,7 +171,7 @@ public class ServerConfigurationManager {
         // Instead of kicking then returning, we need to store the kick reason
         // in the event, check with plugins to see if it's ok, and THEN kick
         // depending on the outcome. Also change any reference to this.e.c to entity.world
-        EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)));
+        EntityPlayer entity = new EntityPlayer(this.server, this.server.getWorldServer(0), s, new ItemInWorldManager(this.server.getWorldServer(0)), netloginhandler.pvn);
         Player player = (entity == null) ? null : (Player) entity.getBukkitEntity();
         PlayerLoginEvent event = new PlayerLoginEvent(player, netloginhandler); //Project Poseidon - pass player IP through
 

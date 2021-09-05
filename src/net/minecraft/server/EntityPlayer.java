@@ -1,16 +1,21 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.PoseidonConfig;
-import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
-import com.projectposeidon.api.PoseidonUUID;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
-import java.util.*;
+import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
+import com.legacyminecraft.poseidon.uberbukkit.Protocol;
+import com.projectposeidon.api.PoseidonUUID;
 
 // CraftBukkit start
 
@@ -28,9 +33,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     private ItemStack[] bN = new ItemStack[]{null, null, null, null, null};
     private int bO = 0;
     public boolean h;
+    // uberbukkit
+    public Protocol protocol;
 
-    public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
+    public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager, int pvn) {
         super(world);
+        this.protocol = Protocol.getProtocolClass(pvn); // uberbukkit
         iteminworldmanager.player = this;
         this.itemInWorldManager = iteminworldmanager;
         ChunkCoordinates chunkcoordinates = world.getSpawn();

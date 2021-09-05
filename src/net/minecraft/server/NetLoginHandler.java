@@ -30,6 +30,7 @@ public class NetLoginHandler extends NetHandler {
     private boolean receivedLoginPacket = false;
     private int rawConnectionType;
     private boolean receivedKeepAlive = false;
+    public int pvn; // uberbukkit
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
@@ -87,7 +88,8 @@ public class NetLoginHandler extends NetHandler {
         }
         receivedLoginPacket = true;
         this.g = packet1login.name;
-        if (packet1login.a != 14) {
+        this.pvn = packet1login.a; // uberbukkit
+        if (packet1login.a > 14) {
             if (packet1login.a > 14) {
                 this.disconnect("Outdated server!");
             } else {
