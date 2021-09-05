@@ -120,7 +120,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
         this.getServer().getPluginManager().callEvent(lightning);
 
         // uberbukkit
-        if (lightning.isCancelled() || PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true)) {
+        if (lightning.isCancelled() || !PoseidonConfig.getInstance().getBoolean("version.mechanics.do_weather", true)) {
             return false;
         }
 
