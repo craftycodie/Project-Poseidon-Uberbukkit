@@ -79,6 +79,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.worldgen.biomes.generate_birches", true);
         generateConfigOption("version.worldgen.generate_steveco_chests", false);
         generateConfigOption("version.worldgen.generate_tallgrass", true);
+        generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
         generateConfigOption("version.mechanics.flammable_fences_stairs", true);
         generateConfigOption("version.mechanics.glowstone_pre1_6_6", false);
         generateConfigOption("version.mechanics.wool_recipe_pre1_6_6", false);
