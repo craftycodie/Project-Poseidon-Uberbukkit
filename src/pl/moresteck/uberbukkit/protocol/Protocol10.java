@@ -1,4 +1,4 @@
-package com.legacyminecraft.poseidon.uberbukkit;
+package pl.moresteck.uberbukkit.protocol;
 
 public class Protocol10 extends Protocol11 {
 

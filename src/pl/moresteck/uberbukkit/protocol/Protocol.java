@@ -1,8 +1,9 @@
-package com.legacyminecraft.poseidon.uberbukkit;
+package pl.moresteck.uberbukkit.protocol;
 
 public interface Protocol {
 	public boolean canReceiveBlockItem(int id);
 	public boolean canReceivePacket(int id);
+	public boolean canSeeMob(Class<?> claz);
 
 	static Protocol getProtocolClass(int pvn) {
 		switch (pvn) {

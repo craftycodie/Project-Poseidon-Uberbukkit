@@ -1,6 +1,9 @@
 package net.minecraft.server;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
+
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
@@ -237,7 +240,10 @@ public class ServerConfigurationManager {
                     isBedSpawn = true;
                     location = new Location(cworld, chunkcoordinates1.x + 0.5, chunkcoordinates1.y, chunkcoordinates1.z + 0.5);
                 } else {
-                    entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
+                	// uberbukkit
+                	if (Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
+                		entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
+                	}
                 }
             }
 
@@ -643,7 +649,8 @@ public class ServerConfigurationManager {
 
     public void a(EntityPlayer entityplayer, WorldServer worldserver) {
         entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
-        if (worldserver.v()) {
+        // uberbukkit
+        if (worldserver.v() && Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
             entityplayer.netServerHandler.sendPacket(new Packet70Bed(1));
         }
     }

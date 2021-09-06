@@ -31,6 +31,12 @@ public class ItemInWorldManager {
         this.world = worldserver;
     }
 
+    // uberbukkit
+    public void resetDig() {
+    	this.i = false;
+    	this.lastDigTick = 0;
+    }
+
     public void a() {
         this.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
         if (this.i) {
@@ -109,25 +115,39 @@ public class ItemInWorldManager {
         }
     }
 
+    // uberbukkit - stays for compatibility reasons
     public void a(int i, int j, int k) {
+    	this.a(i, j, k, true);
+    }
+
+    // uberbukkit
+    public void breakBlock() {
+    	int i = this.e,  j = this.f, k = this.g;
+    	int l = this.currentTick - this.lastDigTick;
+        int i1 = this.world.getTypeId(i, j, k);
+
+        if (i1 != 0) {
+            Block block = Block.byId[i1];
+            float f = block.getDamage(this.player) * (float) (l + 1);
+
+            if (f >= 0.7F) {
+                this.c(i, j, k);
+            } else if (!this.i) {
+                this.i = true;
+                this.j = i;
+                this.k = j;
+                this.l = k;
+                this.m = this.lastDigTick;
+            }
+        }
+    }
+
+    public void a(int i, int j, int k, boolean breaK) {
         if (i == this.e && j == this.f && k == this.g) {
             this.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
-            int l = this.currentTick - this.lastDigTick;
-            int i1 = this.world.getTypeId(i, j, k);
-
-            if (i1 != 0) {
-                Block block = Block.byId[i1];
-                float f = block.getDamage(this.player) * (float) (l + 1);
-
-                if (f >= 0.7F) {
-                    this.c(i, j, k);
-                } else if (!this.i) {
-                    this.i = true;
-                    this.j = i;
-                    this.k = j;
-                    this.l = k;
-                    this.m = this.lastDigTick;
-                }
+            // uberbukkit
+            if (breaK) {
+            	this.breakBlock();
             }
         // CraftBukkit start - force blockreset to client
         } else {

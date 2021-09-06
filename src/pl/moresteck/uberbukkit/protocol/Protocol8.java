@@ -1,17 +1,13 @@
-package com.legacyminecraft.poseidon.uberbukkit;
+package pl.moresteck.uberbukkit.protocol;
 
-public class Protocol11 extends Protocol13 {
+public class Protocol8 extends Protocol9 {
 
 	@Override
 	public boolean canReceiveBlockItem(int id) {
 		switch (id) {
-			case 31: // tallgrass
+			case 355: // bed
 				return false;
-			case 32: // dead bush
-				return false;
-			case 358: // map
-				return false;
-			case 96: // trapdoor
+			case 356: // redstone repeater
 				return false;
 			default:
 				return super.canReceiveBlockItem(id);
@@ -21,9 +17,9 @@ public class Protocol11 extends Protocol13 {
 	@Override
 	public boolean canReceivePacket(int id) {
 		switch (id) {
-			case 61: // jukebox and effects
+			case 17: // bed error
 				return false;
-			case 131: // map packet
+			case 27: // sneak
 				return false;
 			default:
 				return super.canReceivePacket(id);

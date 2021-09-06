@@ -78,6 +78,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.worldgen.biomes.generate_spruces", true);
         generateConfigOption("version.worldgen.biomes.generate_birches", true);
         generateConfigOption("version.worldgen.generate_steveco_chests", false);
+        generateConfigOption("version.worldgen.generate_lapis_ores", true);
         generateConfigOption("version.worldgen.generate_tallgrass", true);
         generateConfigOption("version.mechanics.tile_grass_drop_seeds", false);
         generateConfigOption("version.mechanics.flammable_fences_stairs", true);
@@ -95,6 +96,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.allow_minecart_boosters", false);
         generateConfigOption("version.mechanics.spawn_squids", true);
         generateConfigOption("version.mechanics.spawn_wolves", true);
+        generateConfigOption("version.mechanics.spawn_slimes", true);
         generateConfigOption("version.mechanics.do_weather", true);
         generateConfigOption("version.mechanics.allow_ladder_gap", false);
         generateConfigOption("version.mechanics.old_slab_recipe", false);

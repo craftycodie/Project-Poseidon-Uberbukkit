@@ -1,4 +1,6 @@
-package com.legacyminecraft.poseidon.uberbukkit;
+package pl.moresteck.uberbukkit.protocol;
+
+import org.bukkit.entity.Wolf;
 
 public class Protocol9 extends Protocol10 {
 
@@ -22,5 +24,13 @@ public class Protocol9 extends Protocol10 {
 			default:
 				return super.canReceivePacket(id);
 		}
+	}
+
+	@Override
+	public boolean canSeeMob(Class<?> claz) {
+		if (Wolf.class.isAssignableFrom(claz)) {
+			return false;
+		}
+		return super.canSeeMob(claz);
 	}
 }

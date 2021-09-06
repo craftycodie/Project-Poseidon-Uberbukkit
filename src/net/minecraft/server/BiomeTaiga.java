@@ -14,7 +14,7 @@ public class BiomeTaiga extends BiomeBase {
 
     public WorldGenerator a(Random random) {
     	// uberbukkit
-    	if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_spruces", true))
+    	if (!PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_spruces", true))
     		return super.a(random);
 
         return (WorldGenerator) (random.nextInt(3) == 0 ? new WorldGenTaiga1() : new WorldGenTaiga2());

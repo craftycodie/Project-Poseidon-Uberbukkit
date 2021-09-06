@@ -4,6 +4,8 @@ import java.util.Random;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 public class ChunkProviderGenerate implements IChunkProvider {
 
     private Random j;
@@ -421,11 +423,14 @@ public class ChunkProviderGenerate implements IChunkProvider {
             (new WorldGenMinable(Block.DIAMOND_ORE.id, 7)).a(this.p, this.j, l1, i2, j2);
         }
 
-        for (k1 = 0; k1 < 1; ++k1) {
-            l1 = k + this.j.nextInt(16);
-            i2 = this.j.nextInt(16) + this.j.nextInt(16);
-            j2 = l + this.j.nextInt(16);
-            (new WorldGenMinable(Block.LAPIS_ORE.id, 6)).a(this.p, this.j, l1, i2, j2);
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_lapis_ores", true)) {
+        	for (k1 = 0; k1 < 1; ++k1) {
+                l1 = k + this.j.nextInt(16);
+                i2 = this.j.nextInt(16) + this.j.nextInt(16);
+                j2 = l + this.j.nextInt(16);
+                (new WorldGenMinable(Block.LAPIS_ORE.id, 6)).a(this.p, this.j, l1, i2, j2);
+            }
         }
 
         d0 = 0.5D;

@@ -1,4 +1,4 @@
-package com.legacyminecraft.poseidon.uberbukkit;
+package pl.moresteck.uberbukkit.protocol;
 
 public class Protocol14 implements Protocol {
 
@@ -7,6 +7,10 @@ public class Protocol14 implements Protocol {
 	}
 
 	public boolean canReceivePacket(int id) {
+		return true;
+	}
+
+	public boolean canSeeMob(Class<?> claz) {
 		return true;
 	}
 }

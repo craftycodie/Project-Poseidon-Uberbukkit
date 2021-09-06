@@ -3,6 +3,9 @@ package net.minecraft.server;
 import com.projectposeidon.ConnectionType;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.projectposeidon.johnymuffin.LoginProcessHandler;
+
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftServer;
@@ -89,8 +92,8 @@ public class NetLoginHandler extends NetHandler {
         receivedLoginPacket = true;
         this.g = packet1login.name;
         this.pvn = packet1login.a; // uberbukkit
-        if (packet1login.a > 14) {
-            if (packet1login.a > 14) {
+        if (this.pvn != Uberbukkit.getPVN() && (Uberbukkit.getPVN() == 7 && this.pvn != 8)) {
+            if (this.pvn > Uberbukkit.getPVN()) {
                 this.disconnect("Outdated server!");
             } else {
                 this.disconnect("Outdated client!");

@@ -1,4 +1,6 @@
-package com.legacyminecraft.poseidon.uberbukkit;
+package pl.moresteck.uberbukkit.protocol;
+
+import org.bukkit.entity.Squid;
 
 public class Protocol7 extends Protocol8 {
 
@@ -42,5 +44,13 @@ public class Protocol7 extends Protocol8 {
 			default:
 				return super.canReceivePacket(id);
 		}
+	}
+
+	@Override
+	public boolean canSeeMob(Class<?> claz) {
+		if (Squid.class.isAssignableFrom(claz)) {
+			return false;
+		}
+		return super.canSeeMob(claz);
 	}
 }

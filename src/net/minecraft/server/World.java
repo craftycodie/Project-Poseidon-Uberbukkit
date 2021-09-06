@@ -30,6 +30,8 @@ import org.bukkit.generator.ChunkGenerator;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 // CraftBukkit start
 // CraftBukkit end
 
@@ -291,6 +293,11 @@ public class World implements IBlockAccess {
     // CraftBukkit end
 
     public boolean setRawTypeIdAndData(int i, int j, int k, int l, int i1) {
+    	// uberbukkit
+    	if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(l)) {
+    		return false;
+    	}
+
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return false;
@@ -307,6 +314,11 @@ public class World implements IBlockAccess {
     }
 
     public boolean setRawTypeId(int i, int j, int k, int l) {
+    	// uberbukkit
+    	if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(l)) {
+    		return false;
+    	}
+
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (j < 0) {
                 return false;
@@ -1737,7 +1749,13 @@ public class World implements IBlockAccess {
             this.save(false, (IProgressUpdate) null);
         }
 
-        this.worldData.a(i);
+        // uberbukkit
+        if (this.worldProvider instanceof WorldProviderHell && Uberbukkit.getPVN() < 12) {
+        	this.worldData.a(18000);
+        } else {
+        	this.worldData.a(i);
+        }
+
         this.a(false);
         this.j();
     }

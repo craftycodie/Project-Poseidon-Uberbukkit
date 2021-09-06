@@ -14,8 +14,10 @@ import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
-import com.legacyminecraft.poseidon.uberbukkit.Protocol;
 import com.projectposeidon.api.PoseidonUUID;
+
+import pl.moresteck.uberbukkit.Uberbukkit;
+import pl.moresteck.uberbukkit.protocol.Protocol;
 
 // CraftBukkit start
 
@@ -337,10 +339,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         if (enumbederror == EnumBedError.OK) {
             EntityTracker entitytracker = this.b.getTracker(this.dimension);
             Packet17 packet17 = new Packet17(this, 0, i, j, k);
+            // uberbukkit
+            boolean send = Uberbukkit.getProtocolHandler().canReceivePacket(17);
 
-            entitytracker.a(this, packet17);
+            if (send) entitytracker.a(this, packet17);
             this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
-            this.netServerHandler.sendPacket(packet17);
+            if (send) this.netServerHandler.sendPacket(packet17);
         }
 
         return enumbederror;
@@ -470,14 +474,17 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(Statistic statistic, int i) {
         if (statistic != null) {
-            if (!statistic.g) {
-                while (i > 100) {
-                    this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, 100));
-                    i -= 100;
-                }
+        	// uberbukkit
+        	if (Uberbukkit.getProtocolHandler().canReceivePacket(200)) {
+        		if (!statistic.g) {
+                    while (i > 100) {
+                        this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, 100));
+                        i -= 100;
+                    }
 
-                this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, i));
-            }
+                    this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, i));
+                }
+        	}
         }
     }
 

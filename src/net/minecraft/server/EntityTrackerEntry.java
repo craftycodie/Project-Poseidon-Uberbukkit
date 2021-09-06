@@ -1,15 +1,22 @@
 package net.minecraft.server;
 
-import org.bukkit.entity.Player;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.bukkit.entity.Player;
+
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 public class EntityTrackerEntry {
 
     public Entity tracker;
+    // uberbukkit
+    public boolean b_ = false;
+    public boolean c_ = false;
+    public boolean d_ = false;
+
     public int b;
     public int c;
     public int d;
@@ -121,10 +128,39 @@ public class EntityTrackerEntry {
                 this.a((Packet) packet);
             }
 
-            DataWatcher datawatcher = this.tracker.aa();
+            // uberbukkit
+            if (Uberbukkit.getProtocolHandler().canReceivePacket(40)) {
+            	DataWatcher datawatcher = this.tracker.aa();
 
-            if (datawatcher.a()) {
-                this.b((Packet) (new Packet40EntityMetadata(this.tracker.id, datawatcher)));
+                if (datawatcher.a()) {
+                    this.b((Packet) (new Packet40EntityMetadata(this.tracker.id, datawatcher)));
+                }
+            } else {
+            	if (this.b_ && this.tracker.vehicle == null) {
+                    this.b_ = false;
+                    this.b((Packet) (new Packet18ArmAnimation(this.tracker, 101)));
+                } else if (!this.b_ && this.tracker.vehicle != null) {
+                    this.b_ = true;
+                    this.b((Packet) (new Packet18ArmAnimation(this.tracker, 100)));
+                }
+
+                if (this.tracker instanceof EntityLiving) {
+                    if (this.d_ && !this.tracker.isSneaking()) {
+                        this.d_ = false;
+                        this.b((Packet) (new Packet18ArmAnimation(this.tracker, 105)));
+                    } else if (!this.d_ && this.tracker.isSneaking()) {
+                        this.d_ = true;
+                        this.b((Packet) (new Packet18ArmAnimation(this.tracker, 104)));
+                    }
+                }
+
+                if (this.c_ && this.tracker.fireTicks <= 0) {
+                    this.c_ = false;
+                    this.b((Packet) (new Packet18ArmAnimation(this.tracker, 103)));
+                } else if (!this.c_ && this.tracker.fireTicks > 0) {
+                    this.c_ = true;
+                    this.b((Packet) (new Packet18ArmAnimation(this.tracker, 102)));
+                }
             }
 
             if (needsPositionUpdate) {
@@ -210,6 +246,22 @@ public class EntityTrackerEntry {
                     // CraftBukkit end
                     this.trackedPlayers.add(entityplayer);
                     entityplayer.netServerHandler.sendPacket(this.b());
+
+                    // uberbukkit
+                    if (!Uberbukkit.getProtocolHandler().canReceivePacket(40)) {
+                    	if (this.d_) {
+                            entityplayer.netServerHandler.sendPacket((Packet) (new Packet18ArmAnimation(this.tracker, 104)));
+                        }
+
+                        if (this.b_) {
+                            entityplayer.netServerHandler.sendPacket((Packet) (new Packet18ArmAnimation(this.tracker, 100)));
+                        }
+
+                        if (this.c_) {
+                            entityplayer.netServerHandler.sendPacket((Packet) (new Packet18ArmAnimation(this.tracker, 102)));
+                        }
+                    }
+
                     if (this.isMoving) {
                         entityplayer.netServerHandler.sendPacket(new Packet28EntityVelocity(this.tracker.id, this.tracker.motX, this.tracker.motY, this.tracker.motZ));
                     }
@@ -225,7 +277,8 @@ public class EntityTrackerEntry {
                     if (this.tracker instanceof EntityHuman) {
                         EntityHuman entityhuman = (EntityHuman) this.tracker;
 
-                        if (entityhuman.isSleeping()) {
+                        // uberbukkit
+                        if (entityhuman.isSleeping() && Uberbukkit.getProtocolHandler().canReceivePacket(17)) {
                             entityplayer.netServerHandler.sendPacket(new Packet17(this.tracker, 0, MathHelper.floor(this.tracker.locX), MathHelper.floor(this.tracker.locY), MathHelper.floor(this.tracker.locZ)));
                         }
                     }

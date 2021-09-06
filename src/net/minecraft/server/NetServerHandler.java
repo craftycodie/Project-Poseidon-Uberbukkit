@@ -1,8 +1,10 @@
 package net.minecraft.server;
 
-import com.legacyminecraft.poseidon.event.PlayerSendPacketEvent;
-import com.projectposeidon.ConnectionType;
-import com.legacyminecraft.poseidon.PoseidonConfig;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -19,12 +21,23 @@ import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.packet.PacketReceivedEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerAnimationEvent;
+import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+import com.legacyminecraft.poseidon.PoseidonConfig;
+import com.legacyminecraft.poseidon.event.PlayerSendPacketEvent;
+import com.projectposeidon.ConnectionType;
+
+import pl.moresteck.uberbukkit.Uberbukkit;
+import pl.moresteck.uberbukkit.protocol.Protocol;
 
 // CraftBukkit start
 // CraftBukkit end
@@ -499,7 +512,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 flag1 = true;
             }
 
-            if (packet14blockdig.e == 2) {
+            // uberbukkit
+            if ((Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2)
+            		|| (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1)) {
                 flag1 = true;
             }
 
@@ -534,12 +549,21 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     // CraftBukkit - add face argument
                     this.player.itemInWorldManager.dig(i, j, k, packet14blockdig.face);
                 }
-            } else if (packet14blockdig.e == 2) {
-                this.player.itemInWorldManager.a(i, j, k);
+            // uberbukkit
+            } else if ((Uberbukkit.getPVN() < 9 && packet14blockdig.e == 2)) {
+            	this.player.itemInWorldManager.resetDig();
+            } else if ((Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2)
+            		|| (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1)) {
+                this.player.itemInWorldManager.a(i, j, k, Uberbukkit.getPVN() >= 9);
                 if (worldserver.getTypeId(i, j, k) != 0) {
                     this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
             } else if (packet14blockdig.e == 3) {
+            	// uberbukkit
+            	if (Uberbukkit.getPVN() < 9) {
+            		this.player.itemInWorldManager.breakBlock();
+            	}
+
                 double d4 = this.player.locX - ((double) i + 0.5D);
                 double d5 = this.player.locY - ((double) j + 0.5D);
                 double d6 = this.player.locZ - ((double) k + 0.5D);
@@ -719,8 +743,27 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         //Poseidon End
 
 
+        // uberbukkit
+        Protocol protocol = Uberbukkit.getProtocolHandler();
+        if (!protocol.canReceivePacket(packet.b())) {
+        	this.g = this.f;
+        	return;
+        }
+
+        if (packet instanceof Packet5EntityEquipment) {
+        	Packet5EntityEquipment packet5 = (Packet5EntityEquipment) packet;
+        	if (packet5.c > 0 && !protocol.canReceiveBlockItem(packet5.c)) {
+        		packet5.c = -1;
+        		packet5.d = 0;
+        	}
+        } else if (packet instanceof Packet53BlockChange) {
+        	Packet53BlockChange packet53 = (Packet53BlockChange) packet;
+        	if (!protocol.canReceiveBlockItem(packet53.material)) {
+        		packet53.material = 1;
+        	}
+        }
         // CraftBukkit start
-        if (packet instanceof Packet6SpawnPosition) {
+        else if (packet instanceof Packet6SpawnPosition) {
             Packet6SpawnPosition packet6 = (Packet6SpawnPosition) packet;
             this.player.compassTarget = new Location(this.getPlayer().getWorld(), packet6.x, packet6.y, packet6.z);
         } else if (packet instanceof Packet3Chat) {
@@ -885,7 +928,18 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         if (pevent.isCancelled())
             return;
 
-        if (this.player.dead) return; // CraftBukkit
+        // CraftBukkit start
+        if (this.player.dead) return;
+
+        if (packet18armanimation.b == 104 || packet18armanimation.b == 105) {
+            PlayerToggleSneakEvent event = new PlayerToggleSneakEvent(this.getPlayer(), packet18armanimation.b == 104);
+            this.server.getPluginManager().callEvent(event);
+
+            if (event.isCancelled()) {
+                return;
+            }
+        }
+        // CraftBukkit end
 
         if (packet18armanimation.b == 1) {
             // CraftBukkit start - raytrace to look for 'rogue armswings'
@@ -919,6 +973,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             // CraftBukkit end
 
             this.player.w();
+        // uberbukkit
+        } else if (packet18armanimation.b == 104) {
+        	this.player.setSneak(true);
+        } else if (packet18armanimation.b == 105) {
+        	this.player.setSneak(false);
         }
     }
 
