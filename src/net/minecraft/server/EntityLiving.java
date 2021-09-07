@@ -612,8 +612,8 @@ public abstract class EntityLiving extends Entity {
         int k = MathHelper.floor(this.locZ);
 
         return this.world.getTypeId(i, j, k) == Block.LADDER.id ||
-        		// uberbukkit
-        		(PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_ladder_gap", false) && this.world.getTypeId(i, j + 1, k) == Block.LADDER.id);
+                // uberbukkit
+                (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_ladder_gap", false) && this.world.getTypeId(i, j + 1, k) == Block.LADDER.id);
     }
 
     public void b(NBTTagCompound nbttagcompound) {

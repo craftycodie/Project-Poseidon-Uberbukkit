@@ -27,58 +27,58 @@ public class CraftingManager {
         (new RecipesArmor()).a(this);
         // uberbukkit
         if (Uberbukkit.getPVN() >= 8) {
-        	(new RecipesDyes()).a(this);
-        	this.registerShapedRecipe(new ItemStack(Block.SANDSTONE), new Object[] { "##", "##", Character.valueOf('#'), Block.SAND});
-        	this.registerShapedRecipe(new ItemStack(Block.NOTE_BLOCK, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.REDSTONE});
-        	this.registerShapedRecipe(new ItemStack(Block.DISPENSER, 1), new Object[] { "###", "#X#", "#R#", Character.valueOf('#'), Block.COBBLESTONE, Character.valueOf('X'), Item.BOW, Character.valueOf('R'), Item.REDSTONE});
-        	this.registerShapedRecipe(new ItemStack(Item.CAKE, 1), new Object[] { "AAA", "BEB", "CCC", Character.valueOf('A'), Item.MILK_BUCKET, Character.valueOf('B'), Item.SUGAR, Character.valueOf('C'), Item.WHEAT, Character.valueOf('E'), Item.EGG});
+            (new RecipesDyes()).a(this);
+            this.registerShapedRecipe(new ItemStack(Block.SANDSTONE), new Object[] { "##", "##", Character.valueOf('#'), Block.SAND});
+            this.registerShapedRecipe(new ItemStack(Block.NOTE_BLOCK, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Block.WOOD, Character.valueOf('X'), Item.REDSTONE});
+            this.registerShapedRecipe(new ItemStack(Block.DISPENSER, 1), new Object[] { "###", "#X#", "#R#", Character.valueOf('#'), Block.COBBLESTONE, Character.valueOf('X'), Item.BOW, Character.valueOf('R'), Item.REDSTONE});
+            this.registerShapedRecipe(new ItemStack(Item.CAKE, 1), new Object[] { "AAA", "BEB", "CCC", Character.valueOf('A'), Item.MILK_BUCKET, Character.valueOf('B'), Item.SUGAR, Character.valueOf('C'), Item.WHEAT, Character.valueOf('E'), Item.EGG});
             this.registerShapedRecipe(new ItemStack(Item.SUGAR, 1), new Object[] { "#", Character.valueOf('#'), Item.SUGAR_CANE});
         }
 
         if (Uberbukkit.getPVN() >= 9) {
-        	this.registerShapedRecipe(new ItemStack(Item.DIODE, 1), new Object[] { "#X#", "III", Character.valueOf('#'), Block.REDSTONE_TORCH_ON, Character.valueOf('X'), Item.REDSTONE, Character.valueOf('I'), Block.STONE});
-        	this.registerShapedRecipe(new ItemStack(Item.BED, 1), new Object[] { "###", "XXX", Character.valueOf('#'), Block.WOOL, Character.valueOf('X'), Block.WOOD});
+            this.registerShapedRecipe(new ItemStack(Item.DIODE, 1), new Object[] { "#X#", "III", Character.valueOf('#'), Block.REDSTONE_TORCH_ON, Character.valueOf('X'), Item.REDSTONE, Character.valueOf('I'), Block.STONE});
+            this.registerShapedRecipe(new ItemStack(Item.BED, 1), new Object[] { "###", "XXX", Character.valueOf('#'), Block.WOOL, Character.valueOf('X'), Block.WOOD});
         }
 
         if (Uberbukkit.getPVN() >= 11) {
-        	this.registerShapedRecipe(new ItemStack(Block.GOLDEN_RAIL, 6), new Object[] { "X X", "X#X", "XRX", Character.valueOf('X'), Item.GOLD_INGOT, Character.valueOf('R'), Item.REDSTONE, Character.valueOf('#'), Item.STICK});
+            this.registerShapedRecipe(new ItemStack(Block.GOLDEN_RAIL, 6), new Object[] { "X X", "X#X", "XRX", Character.valueOf('X'), Item.GOLD_INGOT, Character.valueOf('R'), Item.REDSTONE, Character.valueOf('#'), Item.STICK});
             this.registerShapedRecipe(new ItemStack(Block.DETECTOR_RAIL, 6), new Object[] { "X X", "X#X", "XRX", Character.valueOf('X'), Item.IRON_INGOT, Character.valueOf('R'), Item.REDSTONE, Character.valueOf('#'), Block.STONE_PLATE});
         }
 
         if (Uberbukkit.getPVN() >= 12) {
-        	this.registerShapedRecipe(new ItemStack(Item.MAP, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Item.PAPER, Character.valueOf('X'), Item.COMPASS});
+            this.registerShapedRecipe(new ItemStack(Item.MAP, 1), new Object[] { "###", "#X#", "###", Character.valueOf('#'), Item.PAPER, Character.valueOf('X'), Item.COMPASS});
         }
 
         if (Uberbukkit.getPVN() >= 14) {
-        	this.registerShapedRecipe(new ItemStack(Block.PISTON, 1), new Object[] { "TTT", "#X#", "#R#", Character.valueOf('#'), Block.COBBLESTONE, Character.valueOf('X'), Item.IRON_INGOT, Character.valueOf('R'), Item.REDSTONE, Character.valueOf('T'), Block.WOOD});
+            this.registerShapedRecipe(new ItemStack(Block.PISTON, 1), new Object[] { "TTT", "#X#", "#R#", Character.valueOf('#'), Block.COBBLESTONE, Character.valueOf('X'), Item.IRON_INGOT, Character.valueOf('R'), Item.REDSTONE, Character.valueOf('T'), Block.WOOD});
             this.registerShapedRecipe(new ItemStack(Block.PISTON_STICKY, 1), new Object[] { "S", "P", Character.valueOf('S'), Item.SLIME_BALL, Character.valueOf('P'), Block.PISTON});
         }
 
         if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.glowstone_pre1_6_6", false)) {
-        	this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.GLOWSTONE_DUST});
+            this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.GLOWSTONE_DUST});
         } else {
-        	this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.GLOWSTONE_DUST});
+            this.registerShapedRecipe(new ItemStack(Block.GLOWSTONE, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.GLOWSTONE_DUST});
         }
 
         if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.wool_recipe_pre1_6_6", false)) {
-        	this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.STRING});
+            this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "##", "##", Character.valueOf('#'), Item.STRING});
         } else {
-        	this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.STRING});
+            this.registerShapedRecipe(new ItemStack(Block.WOOL, 1), new Object[] { "###", "###", "###", Character.valueOf('#'), Item.STRING});
         }
 
         if (PoseidonConfig.getInstance().getBoolean("version.mechanics.old_slab_recipe", false)) {
-        	this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 0), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
-        	if (Uberbukkit.getPVN() >= 9) {
-        		this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 1), new Object[] { "###", Character.valueOf('#'), Block.SANDSTONE});
+            this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 0), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
+            if (Uberbukkit.getPVN() >= 9) {
+                this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 1), new Object[] { "###", Character.valueOf('#'), Block.SANDSTONE});
                 this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 2), new Object[] { "###", Character.valueOf('#'), Block.WOOD});
-        	}
+            }
         } else {
-        	if (Uberbukkit.getPVN() >= 9) {
-        		this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 3), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
+            if (Uberbukkit.getPVN() >= 9) {
+                this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 3), new Object[] { "###", Character.valueOf('#'), Block.COBBLESTONE});
                 this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 0), new Object[] { "###", Character.valueOf('#'), Block.STONE});
                 this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 1), new Object[] { "###", Character.valueOf('#'), Block.SANDSTONE});
                 this.registerShapedRecipe(new ItemStack(Block.STEP, 3, 2), new Object[] { "###", Character.valueOf('#'), Block.WOOD});
-        	}
+            }
         }
 
         this.registerShapedRecipe(new ItemStack(Item.PAPER, 3), new Object[] { "###", Character.valueOf('#'), Item.SUGAR_CANE});
@@ -94,7 +94,7 @@ public class CraftingManager {
         // uberbukkit
         ItemStack ladder = new ItemStack(Block.LADDER, 2);
         if (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_ladder_gap", false)) {
-        	ladder = new ItemStack(Block.LADDER, 1);
+            ladder = new ItemStack(Block.LADDER, 1);
         }
         this.registerShapedRecipe(ladder, new Object[] { "# #", "###", "# #", Character.valueOf('#'), Item.STICK});
 

@@ -514,7 +514,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
             // uberbukkit
             if ((Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2)
-            		|| (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1)) {
+                    || (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1)) {
                 flag1 = true;
             }
 
@@ -549,16 +549,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     // CraftBukkit - add face argument
                     this.player.itemInWorldManager.dig(i, j, k, packet14blockdig.face);
                 }
-            // uberbukkit
+                // uberbukkit
             } else if ((Uberbukkit.getPVN() < 9 && packet14blockdig.e == 2)) {
-            	this.player.itemInWorldManager.a_();
+                this.player.itemInWorldManager.a_();
             } else if (Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2) {
                 this.player.itemInWorldManager.a(i, j, k, true);
                 if (worldserver.getTypeId(i, j, k) != 0) {
                     this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
             } else if (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1) {
-            	this.player.itemInWorldManager.a_(i, j, k, packet14blockdig.face);
+                this.player.itemInWorldManager.a_(i, j, k, packet14blockdig.face);
             } else if (packet14blockdig.e == 3) {
                 double d4 = this.player.locX - ((double) i + 0.5D);
                 double d5 = this.player.locY - ((double) j + 0.5D);
@@ -742,21 +742,21 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         // uberbukkit
         Protocol protocol = Uberbukkit.getProtocolHandler();
         if (!protocol.canReceivePacket(packet.b())) {
-        	this.g = this.f;
-        	return;
+            this.g = this.f;
+            return;
         }
 
         if (packet instanceof Packet5EntityEquipment) {
-        	Packet5EntityEquipment packet5 = (Packet5EntityEquipment) packet;
-        	if (packet5.c > 0 && !protocol.canReceiveBlockItem(packet5.c)) {
-        		packet5.c = -1;
-        		packet5.d = 0;
-        	}
+            Packet5EntityEquipment packet5 = (Packet5EntityEquipment) packet;
+            if (packet5.c > 0 && !protocol.canReceiveBlockItem(packet5.c)) {
+                packet5.c = -1;
+                packet5.d = 0;
+            }
         } else if (packet instanceof Packet53BlockChange) {
-        	Packet53BlockChange packet53 = (Packet53BlockChange) packet;
-        	if (!protocol.canReceiveBlockItem(packet53.material)) {
-        		packet53.material = 1;
-        	}
+            Packet53BlockChange packet53 = (Packet53BlockChange) packet;
+            if (!protocol.canReceiveBlockItem(packet53.material)) {
+                packet53.material = 1;
+            }
         }
         // CraftBukkit start
         else if (packet instanceof Packet6SpawnPosition) {
@@ -767,9 +767,9 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             // uberbukkit
             String[] wrapped = null;
             if (Uberbukkit.getPVN() >= 9) { // TODO check compatibility
-            	wrapped = TextWrapper.wrapText(message);
+                wrapped = TextWrapper.wrapText(message);
             } else {
-            	wrapped = TextWrapper.wrapTextLegacy(message);
+                wrapped = TextWrapper.wrapTextLegacy(message);
             }
 
             for (final String line : wrapped) {
@@ -977,11 +977,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             // CraftBukkit end
 
             this.player.w();
-        // uberbukkit
+            // uberbukkit
         } else if (packet18armanimation.b == 104) {
-        	this.player.setSneak(true);
+            this.player.setSneak(true);
         } else if (packet18armanimation.b == 105) {
-        	this.player.setSneak(false);
+            this.player.setSneak(false);
         }
     }
 

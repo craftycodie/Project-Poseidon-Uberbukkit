@@ -146,7 +146,7 @@ public class NetLoginHandler extends NetHandler {
 
             new LoginProcessHandler(this, packet1login, this.server.server, this.server.onlineMode);
             // (new ThreadLoginVerifier(this, packet1login, this.server.server)).start(); // CraftBukkit
-//            }
+            //            }
         }
     }
 
@@ -170,7 +170,7 @@ public class NetLoginHandler extends NetHandler {
             // uberbukkit
             byte dim = (byte) worldserver.worldProvider.dimension;
             if (Uberbukkit.getPVN() < 12) {
-            	dim = 0;
+                dim = 0;
             }
 
             netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), dim));

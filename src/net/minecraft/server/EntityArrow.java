@@ -296,12 +296,12 @@ public class EntityArrow extends Entity {
     public void b(EntityHuman entityhuman) {
         if (!this.world.isStatic) {
 
-        	// uberbukkit
-        	if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.arrows_pickup_by_others", true)) {
-        		if (this.shooter != entityhuman) {
-        			return;
-        		}
-        	}
+            // uberbukkit
+            if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.arrows_pickup_by_others", true)) {
+                if (this.shooter != entityhuman) {
+                    return;
+                }
+            }
 
             // CraftBukkit start
             ItemStack itemstack = new ItemStack(Item.ARROW, 1);

@@ -34,7 +34,7 @@ public class BlockFire extends Block {
 
         // uberbukkit
         if (PoseidonConfig.getInstance().getBoolean("version.mechanics.flammable_fences_stairs", true)) {
-        	this.a(Block.FENCE.id, 5, 20);
+            this.a(Block.FENCE.id, 5, 20);
             this.a(Block.WOOD_STAIRS.id, 5, 20);
         }
     }
@@ -61,7 +61,7 @@ public class BlockFire extends Block {
     }
 
     public int c() {
-    	// uberbukkit
+        // uberbukkit
         return PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_1_6_fire", false) ? 10 : 40;
     }
 
@@ -81,16 +81,16 @@ public class BlockFire extends Block {
 
             // uberbukkit - fire
             if (oldfire) {
-            	if (l < 15) {
-            		world.setData(i, j, k, l + 1);
+                if (l < 15) {
+                    world.setData(i, j, k, l + 1);
                     world.c(i, j, k, this.id, this.c());
-            	}
+                }
             } else {
-            	if (l < 15) {
-            		world.setRawData(i, j, k, l + random.nextInt(3) / 2);
-            	}
+                if (l < 15) {
+                    world.setRawData(i, j, k, l + random.nextInt(3) / 2);
+                }
 
-            	world.c(i, j, k, this.id, this.c());
+                world.c(i, j, k, this.id, this.c());
             }
 
             if (!flag && !this.g(world, i, j, k)) {
@@ -111,8 +111,8 @@ public class BlockFire extends Block {
 
                 // uberbukkit
                 if (oldfire) {
-                	if (l % 2 == 0 && l > 2) {
-                		this.a(world, i + 1, j, k, 300, random, l);
+                    if (l % 2 == 0 && l > 2) {
+                        this.a(world, i + 1, j, k, 300, random, l);
                         this.a(world, i - 1, j, k, 300, random, l);
                         this.a(world, i, j - 1, k, 250, random, l);
                         this.a(world, i, j + 1, k, 250, random, l);
@@ -130,7 +130,7 @@ public class BlockFire extends Block {
                                         }
                                         int i2 = this.h(world, i1, k1, j1);
                                         if (i2 > 0 && random.nextInt(l1) <= i2 && (!world.v() || !world.s(i1, k1, j1)) && !world.s(i1 - 1, k1, k) && !world.s(i1 + 1, k1, j1) && !world.s(i1, k1, j1 - 1) && !world.s(i1, k1, j1 + 1)) {
-                                        	// CraftBukkit start - Call to stop spread of fire.
+                                            // CraftBukkit start - Call to stop spread of fire.
                                             org.bukkit.block.Block block = bworld.getBlockAt(i1, k1, j1);
 
                                             if (block.getTypeId() != Block.FIRE.id) {
@@ -158,9 +158,9 @@ public class BlockFire extends Block {
                                 }
                             }
                         }
-                	}
+                    }
                 } else {
-                	this.a(world, i + 1, j, k, 300, random, l);
+                    this.a(world, i + 1, j, k, 300, random, l);
                     this.a(world, i - 1, j, k, 300, random, l);
                     this.a(world, i, j - 1, k, 250, random, l);
                     this.a(world, i, j + 1, k, 250, random, l);
@@ -249,7 +249,7 @@ public class BlockFire extends Block {
 
             // uberbukkit
             if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.pre_1_6_fire", false)) {
-            	if (random.nextInt(i1 + 10) < 5 && !world.s(i, j, k)) {
+                if (random.nextInt(i1 + 10) < 5 && !world.s(i, j, k)) {
                     int k1 = i1 + random.nextInt(5) / 4;
 
                     if (k1 > 15) {
@@ -261,13 +261,13 @@ public class BlockFire extends Block {
                     world.setTypeId(i, j, k, 0);
                 }
             } else {
-            	if (random.nextInt(2) == 0 && !world.s(i, j, k)) {
-            		world.setTypeId(i, j, k, this.id);
+                if (random.nextInt(2) == 0 && !world.s(i, j, k)) {
+                    world.setTypeId(i, j, k, this.id);
                 } else {
                     world.setTypeId(i, j, k, 0);
                 }
             }
-            
+
 
             if (flag) {
                 Block.TNT.postBreak(world, i, j, k, 1);

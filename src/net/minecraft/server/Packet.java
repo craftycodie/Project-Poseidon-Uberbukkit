@@ -24,7 +24,7 @@ public abstract class Packet {
     private static int f;
 
     public Packet() {}
-    
+
     /**
      * Register a packet
      * @author moderator_Man
@@ -48,7 +48,7 @@ public abstract class Packet {
                 serverPacketIdList.add(Integer.valueOf(id));
         }
     }
-    
+
     static void a(int i, boolean flag, boolean flag1, Class oclass) {
         if (packetIdToClassMap.containsKey(Integer.valueOf(i))) {
             throw new IllegalArgumentException("Duplicate packet id:" + i);

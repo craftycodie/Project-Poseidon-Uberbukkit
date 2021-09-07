@@ -39,11 +39,11 @@ public class Packet21PickupSpawn extends Packet {
         this.h = datainputstream.readShort();
         this.i = datainputstream.readByte();
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 8) {
-    		this.l = datainputstream.readShort();
-    	} else {
-    		this.l = 0;
-    	}
+        if (Uberbukkit.getPVN() >= 8) {
+            this.l = datainputstream.readShort();
+        } else {
+            this.l = 0;
+        }
 
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
@@ -58,9 +58,9 @@ public class Packet21PickupSpawn extends Packet {
         dataoutputstream.writeShort(this.h);
         dataoutputstream.writeByte(this.i);
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 8) {
-    		dataoutputstream.writeShort(this.l);
-    	}
+        if (Uberbukkit.getPVN() >= 8) {
+            dataoutputstream.writeShort(this.l);
+        }
 
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);

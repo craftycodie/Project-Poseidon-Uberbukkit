@@ -51,10 +51,10 @@ public class BiomeBase {
         this.t.add(new BiomeMeta(EntityCow.class, 8));
         // uberbukkit
         if (PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_squids", true))
-        	this.u.add(new BiomeMeta(EntitySquid.class, 10));
+            this.u.add(new BiomeMeta(EntitySquid.class, 10));
 
         if (PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_slimes", true))
-        	this.s.add(new BiomeMeta(EntitySlime.class, 10));
+            this.s.add(new BiomeMeta(EntitySlime.class, 10));
     }
 
     private BiomeBase e() {

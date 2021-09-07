@@ -23,21 +23,21 @@ public class Packet3Chat extends Packet {
     }
 
     public void a(DataInputStream datainputstream) throws IOException { // CraftBukkit
-    	// uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		this.message = a(datainputstream, 119);
-    	} else {
-    		this.message = datainputstream.readUTF();
-    	}
+        // uberbukkit
+        if (Uberbukkit.getPVN() >= 11) {
+            this.message = a(datainputstream, 119);
+        } else {
+            this.message = datainputstream.readUTF();
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException { // CraftBukkit
-    	// uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		a(this.message, dataoutputstream);
-    	} else {
-    		dataoutputstream.writeUTF(this.message);
-    	}
+        // uberbukkit
+        if (Uberbukkit.getPVN() >= 11) {
+            a(this.message, dataoutputstream);
+        } else {
+            dataoutputstream.writeUTF(this.message);
+        }
     }
 
     public void a(NetHandler nethandler) {

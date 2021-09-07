@@ -28,11 +28,11 @@ public class Packet102WindowClick extends Packet {
         this.c = datainputstream.readByte();
         this.d = datainputstream.readShort();
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		this.f = datainputstream.readBoolean();
-    	} else {
-    		this.f = false;
-    	}
+        if (Uberbukkit.getPVN() >= 11) {
+            this.f = datainputstream.readBoolean();
+        } else {
+            this.f = false;
+        }
 
         short short1 = datainputstream.readShort();
 
@@ -41,10 +41,10 @@ public class Packet102WindowClick extends Packet {
             short short2 = 0;
             // uberbukkit
             if (Uberbukkit.getPVN() >= 8) {
-        		short2 = datainputstream.readShort();
-        	} else {
-        		short2 = datainputstream.readByte();
-        	}
+                short2 = datainputstream.readShort();
+            } else {
+                short2 = datainputstream.readByte();
+            }
 
             this.e = new ItemStack(short1, b0, short2);
         } else {
@@ -58,9 +58,9 @@ public class Packet102WindowClick extends Packet {
         dataoutputstream.writeByte(this.c);
         dataoutputstream.writeShort(this.d);
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		dataoutputstream.writeBoolean(this.f);
-    	}
+        if (Uberbukkit.getPVN() >= 11) {
+            dataoutputstream.writeBoolean(this.f);
+        }
 
         if (this.e == null) {
             dataoutputstream.writeShort(-1);
@@ -69,15 +69,15 @@ public class Packet102WindowClick extends Packet {
             dataoutputstream.writeByte(this.e.count);
             // uberbukkit
             if (Uberbukkit.getPVN() >= 8) {
-            	dataoutputstream.writeShort(this.e.getData());
-        	} else {
-        		dataoutputstream.writeByte(this.e.getData());
-        	}
+                dataoutputstream.writeShort(this.e.getData());
+            } else {
+                dataoutputstream.writeByte(this.e.getData());
+            }
         }
     }
 
     public int a() {
-    	// uberbukkit
+        // uberbukkit
         return Uberbukkit.getPVN() >= 8 ? 11 : 10;
     }
 }

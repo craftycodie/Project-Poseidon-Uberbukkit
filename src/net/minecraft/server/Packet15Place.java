@@ -28,10 +28,10 @@ public class Packet15Place extends Packet {
             short short2 = 0;
             // uberbukkit
             if (Uberbukkit.getPVN() >= 8) {
-        		short2 = datainputstream.readShort();
-        	} else {
-        		short2 = datainputstream.readByte();
-        	}
+                short2 = datainputstream.readShort();
+            } else {
+                short2 = datainputstream.readByte();
+            }
 
             this.itemstack = new ItemStack(short1, b0, short2);
         } else {
@@ -51,10 +51,10 @@ public class Packet15Place extends Packet {
             dataoutputstream.writeByte(this.itemstack.count);
             // uberbukkit
             if (Uberbukkit.getPVN() >= 8) {
-            	dataoutputstream.writeShort(this.itemstack.getData());
-        	} else {
-        		dataoutputstream.writeByte(this.itemstack.getData());
-        	}
+                dataoutputstream.writeShort(this.itemstack.getData());
+            } else {
+                dataoutputstream.writeByte(this.itemstack.getData());
+            }
         }
     }
 

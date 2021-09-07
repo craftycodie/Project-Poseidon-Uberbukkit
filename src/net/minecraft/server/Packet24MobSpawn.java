@@ -41,11 +41,11 @@ public class Packet24MobSpawn extends Packet {
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 8) {
-    		this.i = DataWatcher.a(datainputstream);
-    	} else {
-    		this.i = null;
-    	}
+        if (Uberbukkit.getPVN() >= 8) {
+            this.i = DataWatcher.a(datainputstream);
+        } else {
+            this.i = null;
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
@@ -57,9 +57,9 @@ public class Packet24MobSpawn extends Packet {
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 8) {
-    		this.h.a(dataoutputstream);
-    	}
+        if (Uberbukkit.getPVN() >= 8) {
+            this.h.a(dataoutputstream);
+        }
     }
 
     public void a(NetHandler nethandler) {

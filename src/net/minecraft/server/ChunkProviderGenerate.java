@@ -424,7 +424,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         // uberbukkit
         if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_lapis_ores", true)) {
-        	for (k1 = 0; k1 < 1; ++k1) {
+            for (k1 = 0; k1 < 1; ++k1) {
                 l1 = k + this.j.nextInt(16);
                 i2 = this.j.nextInt(16) + this.j.nextInt(16);
                 j2 = l + this.j.nextInt(16);
@@ -470,14 +470,14 @@ public class ChunkProviderGenerate implements IChunkProvider {
         // uberbukkit
         Object object = biomebase.a(this.j);
         if (PoseidonConfig.getInstance().getBoolean("version.worldgen.pre_b1_2_ore_generation", false)) {
-        	object = new WorldGenTrees();
-        	if (this.j.nextInt(10) == 0) {
+            object = new WorldGenTrees();
+            if (this.j.nextInt(10) == 0) {
                 object = new WorldGenBigTree();
             }
 
-        	if (biomebase == BiomeBase.RAINFOREST && this.j.nextInt(3) == 0) {
+            if (biomebase == BiomeBase.RAINFOREST && this.j.nextInt(3) == 0) {
                 object = new WorldGenBigTree();
-        	}
+            }
         }
 
         int k2;
@@ -547,7 +547,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         // uberbukkit
         if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_tallgrass", true)) {
-        	for (k2 = 0; k2 < b1; ++k2) {
+            for (k2 = 0; k2 < b1; ++k2) {
                 byte b2 = 1;
 
                 if (biomebase == BiomeBase.RAINFOREST && this.j.nextInt(3) != 0) {
@@ -568,7 +568,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         // uberbukkit
         if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_tallgrass", true)) {
-        	for (k2 = 0; k2 < b1; ++k2) {
+            for (k2 = 0; k2 < b1; ++k2) {
                 i3 = k + this.j.nextInt(16) + 8;
                 l2 = this.j.nextInt(128);
                 k3 = l + this.j.nextInt(16) + 8;
@@ -654,7 +654,7 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
         // uberbukkit
         if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", false)) {
-        	k2 = k + this.j.nextInt(16) + 8;
+            k2 = k + this.j.nextInt(16) + 8;
             l2 = this.j.nextInt(128);
             i3 = l + this.j.nextInt(16) + 8;
             if (this.p.getTypeId(k2, l2, i3) == 0 && this.p.p(k2, l2 - 1, i3)) {

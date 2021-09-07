@@ -25,8 +25,8 @@ public class BlockTorch extends Block {
 
     private boolean g(World world, int i, int j, int k) {
         return world.e(i, j, k) ||
-        		// uberbukkit
-        		(PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_1_7_fence_placement", true) && world.getTypeId(i, j, k) == Block.FENCE.id);
+                // uberbukkit
+                (PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_1_7_fence_placement", true) && world.getTypeId(i, j, k) == Block.FENCE.id);
     }
 
     public boolean canPlace(World world, int i, int j, int k) {

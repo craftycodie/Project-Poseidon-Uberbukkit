@@ -474,9 +474,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(Statistic statistic, int i) {
         if (statistic != null) {
-        	// uberbukkit
-        	if (Uberbukkit.getProtocolHandler().canReceivePacket(200)) {
-        		if (!statistic.g) {
+            // uberbukkit
+            if (Uberbukkit.getProtocolHandler().canReceivePacket(200)) {
+                if (!statistic.g) {
                     while (i > 100) {
                         this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, 100));
                         i -= 100;
@@ -484,7 +484,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
                     this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, i));
                 }
-        	}
+            }
         }
     }
 

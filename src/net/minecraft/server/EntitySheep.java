@@ -20,9 +20,9 @@ public class EntitySheep extends EntityAnimal {
     }
 
     public boolean damageEntity(Entity entity, int i) {
-    	// uberbukkit
-    	if (PoseidonConfig.getInstance().getBoolean("version.mechanics.sheep_drop_wool_on_punch", false)) {
-    		if (!this.world.isStatic && !this.isSheared() && entity instanceof EntityLiving) {
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.mechanics.sheep_drop_wool_on_punch", false)) {
+            if (!this.world.isStatic && !this.isSheared() && entity instanceof EntityLiving) {
                 this.setSheared(true);
                 int j = 1 + this.random.nextInt(3);
                 for (int k = 0; k < j; ++k) {
@@ -31,10 +31,10 @@ public class EntitySheep extends EntityAnimal {
                     entityitem.motX += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
                     entityitem.motZ += (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.1F);
                 }
-    		}
-    	}
+            }
+        }
 
-    	return super.damageEntity(entity, i);
+        return super.damageEntity(entity, i);
     }
 
     protected void q() {
@@ -140,17 +140,17 @@ public class EntitySheep extends EntityAnimal {
         boolean spawn_brown_pink = PoseidonConfig.getInstance().getBoolean("version.mechanics.spawn_brown_and_pink_sheep", true);
 
         if (i < 5 && spawn_black) {
-        	return 15;
+            return 15;
         } else if (i < 10 && spawn_black) {
-        	return 7;
+            return 7;
         } else if (i < 15 && spawn_black) {
-        	return 8;
+            return 8;
         } else if (i < 18 && spawn_brown_pink) {
-        	return 12;
+            return 12;
         } else if (spawn_brown_pink && random.nextInt(500) == 0) {
-        	return 6;
+            return 6;
         } else {
-        	return 0;
+            return 0;
         }
     }
 }

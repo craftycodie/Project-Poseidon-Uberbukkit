@@ -46,7 +46,7 @@ public class ItemHoe extends Item {
 
                 // uberbukkit
                 if (PoseidonConfig.getInstance().getBoolean("version.mechanics.tile_grass_drop_seeds", false)) {
-                	if (world.random.nextInt(8) == 0 && i1 == Block.GRASS.id) {
+                    if (world.random.nextInt(8) == 0 && i1 == Block.GRASS.id) {
                         byte b0 = 1;
 
                         for (j1 = 0; j1 < b0; ++j1) {

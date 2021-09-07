@@ -29,11 +29,11 @@ public class Packet25EntityPainting extends Packet {
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		this.f = a(datainputstream, EnumArt.z);
-    	} else {
-    		this.f = datainputstream.readUTF();
-    	}
+        if (Uberbukkit.getPVN() >= 11) {
+            this.f = a(datainputstream, EnumArt.z);
+        } else {
+            this.f = datainputstream.readUTF();
+        }
 
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
@@ -44,11 +44,11 @@ public class Packet25EntityPainting extends Packet {
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		a(this.f, dataoutputstream);
-    	} else {
-    		dataoutputstream.writeUTF(this.f);
-    	}
+        if (Uberbukkit.getPVN() >= 11) {
+            a(this.f, dataoutputstream);
+        } else {
+            dataoutputstream.writeUTF(this.f);
+        }
 
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);

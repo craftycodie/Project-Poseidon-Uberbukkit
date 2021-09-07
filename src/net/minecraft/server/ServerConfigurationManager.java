@@ -146,19 +146,19 @@ public class ServerConfigurationManager {
         // CraftBukkit end
 
         //Project POSEIDON Start
-//        boolean found = false;
-//        for (int i = 0; i < this.players.size(); ++i) {
-//            EntityPlayer ep = (EntityPlayer) this.players.get(i);
-//            if (entityplayer.name.equalsIgnoreCase(ep.name)) {
-//                found = true;
-//                break;
-//            }
-//        }
-//        if (!found) {
-//            //return null; - This caused a bug which could block future connections if a quit event occurs before a join event, i think
-//            playerQuitEvent.setQuitMessage(null);
-//        }
-//        PlayerTracker.getInstance().removePlayer(entityplayer.name);
+        //        boolean found = false;
+        //        for (int i = 0; i < this.players.size(); ++i) {
+        //            EntityPlayer ep = (EntityPlayer) this.players.get(i);
+        //            if (entityplayer.name.equalsIgnoreCase(ep.name)) {
+        //                found = true;
+        //                break;
+        //            }
+        //        }
+        //        if (!found) {
+        //            //return null; - This caused a bug which could block future connections if a quit event occurs before a join event, i think
+        //            playerQuitEvent.setQuitMessage(null);
+        //        }
+        //        PlayerTracker.getInstance().removePlayer(entityplayer.name);
         //Project POSEIDON End
 
         this.playerFileData.a(entityplayer);
@@ -240,10 +240,10 @@ public class ServerConfigurationManager {
                     isBedSpawn = true;
                     location = new Location(cworld, chunkcoordinates1.x + 0.5, chunkcoordinates1.y, chunkcoordinates1.z + 0.5);
                 } else {
-                	// uberbukkit
-                	if (Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
-                		entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
-                	}
+                    // uberbukkit
+                    if (Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
+                        entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
+                    }
                 }
             }
 

@@ -155,7 +155,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
         explosion.a = flag;
         explosion.a();
         explosion.a(false);
-        */
+         */
         this.server.serverConfigurationManager.sendPacketNearby(d0, d1, d2, 64.0D, this.dimension, new Packet60Explosion(d0, d1, d2, f, explosion.blocks));
         // CraftBukkit end
         return explosion;
@@ -165,8 +165,8 @@ public class WorldServer extends World implements BlockChangeDelegate {
         super.playNote(i, j, k, l, i1);
         // uberbukkit
         if (Uberbukkit.getProtocolHandler().canReceivePacket(54)) {
-        	// CraftBukkit
-        	this.server.serverConfigurationManager.sendPacketNearby((double) i, (double) j, (double) k, 64.0D, this.dimension, new Packet54PlayNoteBlock(i, j, k, l, i1));
+            // CraftBukkit
+            this.server.serverConfigurationManager.sendPacketNearby((double) i, (double) j, (double) k, 64.0D, this.dimension, new Packet54PlayNoteBlock(i, j, k, l, i1));
         }
     }
 
@@ -181,7 +181,7 @@ public class WorldServer extends World implements BlockChangeDelegate {
         if (flag != this.v()) {
             // CraftBukkit start - only sending weather packets to those affected
             for (int i = 0; i < this.players.size(); ++i) {
-            	// uberbukkit
+                // uberbukkit
                 if (((EntityPlayer) this.players.get(i)).world == this && Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
                     ((EntityPlayer) this.players.get(i)).netServerHandler.sendPacket(new Packet70Bed(flag ? 2 : 1));
                 }

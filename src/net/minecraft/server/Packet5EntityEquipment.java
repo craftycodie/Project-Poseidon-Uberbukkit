@@ -32,11 +32,11 @@ public class Packet5EntityEquipment extends Packet {
         this.b = datainputstream.readShort();
         this.c = datainputstream.readShort();
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 8) {
-    		this.d = datainputstream.readShort();
-    	} else {
-    		this.d = 0;
-    	}
+        if (Uberbukkit.getPVN() >= 8) {
+            this.d = datainputstream.readShort();
+        } else {
+            this.d = 0;
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
@@ -44,9 +44,9 @@ public class Packet5EntityEquipment extends Packet {
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeShort(this.c);
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 8) {
-    		dataoutputstream.writeShort(this.d);
-    	}
+        if (Uberbukkit.getPVN() >= 8) {
+            dataoutputstream.writeShort(this.d);
+        }
     }
 
     public void a(NetHandler nethandler) {

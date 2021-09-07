@@ -35,7 +35,7 @@ public class WorldGenMinable extends WorldGenerator {
 
             // uberbukkit
             if (PoseidonConfig.getInstance().getBoolean("version.worldgen.pre_b1_2_ore_generation", false)) {
-            	for (int i1 = (int) (d6 - d10 / 2.0D); i1 <= (int) (d6 + d10 / 2.0D); ++i1) {
+                for (int i1 = (int) (d6 - d10 / 2.0D); i1 <= (int) (d6 + d10 / 2.0D); ++i1) {
                     for (int j1 = (int) (d7 - d11 / 2.0D); j1 <= (int) (d7 + d11 / 2.0D); ++j1) {
                         for (int k1 = (int) (d8 - d10 / 2.0D); k1 <= (int) (d8 + d10 / 2.0D); ++k1) {
                             double d12 = ((double) i1 + 0.5D - d6) / (d10 / 2.0D);
@@ -47,9 +47,9 @@ public class WorldGenMinable extends WorldGenerator {
                             }
                         }
                     }
-            	}
+                }
             } else {
-            	int i1 = MathHelper.floor(d6 - d10 / 2.0D);
+                int i1 = MathHelper.floor(d6 - d10 / 2.0D);
                 int j1 = MathHelper.floor(d7 - d11 / 2.0D);
                 int k1 = MathHelper.floor(d8 - d10 / 2.0D);
                 int l1 = MathHelper.floor(d6 + d10 / 2.0D);

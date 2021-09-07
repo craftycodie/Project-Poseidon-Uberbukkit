@@ -66,10 +66,10 @@ public class NetworkManager {
 
             // uberbukkit
             if (Uberbukkit.getPVN() >= 11) {
-            	this.input = new DataInputStream(socket.getInputStream());
+                this.input = new DataInputStream(socket.getInputStream());
                 this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream(), 5120));
             } else {
-            	this.input = new DataInputStream(socket.getInputStream());
+                this.input = new DataInputStream(socket.getInputStream());
                 this.output = new DataOutputStream(socket.getOutputStream());
             }
         } catch (java.io.IOException socketexception) {
@@ -267,7 +267,7 @@ public class NetworkManager {
 
             //Poseidon End
 
-//            packet.a(this.p);
+            //            packet.a(this.p);
         }
 
         this.a();

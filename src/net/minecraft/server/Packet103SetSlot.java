@@ -34,10 +34,10 @@ public class Packet103SetSlot extends Packet {
             short short2 = 0;
             // uberbukkit
             if (Uberbukkit.getPVN() >= 8) {
-        		short2 = datainputstream.readShort();
-        	} else {
-        		short2 = datainputstream.readByte();
-        	}
+                short2 = datainputstream.readShort();
+            } else {
+                short2 = datainputstream.readByte();
+            }
 
             this.c = new ItemStack(short1, b0, short2);
         } else {
@@ -55,10 +55,10 @@ public class Packet103SetSlot extends Packet {
             dataoutputstream.writeByte(this.c.count);
             // uberbukkit
             if (Uberbukkit.getPVN() >= 8) {
-            	dataoutputstream.writeShort(this.c.getData());
-        	} else {
-        		dataoutputstream.writeByte(this.c.getData());
-        	}
+                dataoutputstream.writeShort(this.c.getData());
+            } else {
+                dataoutputstream.writeByte(this.c.getData());
+            }
         }
     }
 

@@ -17,9 +17,9 @@ public class BlockMushroom extends BlockFlower {
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-    	// uberbukkit
-    	if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.mushroom_spread", true))
-    		return;
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.mushroom_spread", true))
+            return;
 
         if (random.nextInt(100) == 0) {
             int l = i + random.nextInt(3) - 1;

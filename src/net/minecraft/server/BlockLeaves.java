@@ -131,7 +131,7 @@ public class BlockLeaves extends BlockLeavesBase {
         int data = world.getData(i, j, k);
         // uberbukkit
         if (data > 0 && !PoseidonConfig.getInstance().getBoolean("version.mechanics.drop_saplings_of_leaf_type", true)) {
-        	data = 0;
+            data = 0;
         }
 
         this.g(world, i, j, k, data);

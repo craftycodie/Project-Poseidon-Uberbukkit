@@ -752,9 +752,9 @@ public class EntityMinecart extends Entity implements IInventory {
                     d0 *= 0.5D;
                     d1 *= 0.5D;
                     if (entity instanceof EntityMinecart) {
-                    	// uberbukkit
-                    	if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_minecart_boosters", false)) {
-                    		double d4 = entity.locX - this.locX;
+                        // uberbukkit
+                        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.allow_minecart_boosters", false)) {
+                            double d4 = entity.locX - this.locX;
                             double d5 = entity.locZ - this.locZ;
                             double d6 = d4 * entity.motZ + d5 * entity.lastX;
 
@@ -762,7 +762,7 @@ public class EntityMinecart extends Entity implements IInventory {
                             if (d6 > 5.0D) {
                                 return;
                             }
-                    	}
+                        }
 
                         double d7 = entity.motX + this.motX;
                         double d8 = entity.motZ + this.motZ;

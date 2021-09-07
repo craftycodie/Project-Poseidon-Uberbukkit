@@ -25,12 +25,12 @@ public class Packet1Login extends Packet {
     public void a(DataInputStream datainputstream) throws IOException {
         this.a = datainputstream.readInt();
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		this.name = a(datainputstream, 16);
-    	} else {
-    		this.name = datainputstream.readUTF();
-    		datainputstream.readUTF();
-    	}
+        if (Uberbukkit.getPVN() >= 11) {
+            this.name = a(datainputstream, 16);
+        } else {
+            this.name = datainputstream.readUTF();
+            datainputstream.readUTF();
+        }
 
         this.c = datainputstream.readLong();
         this.d = datainputstream.readByte();
@@ -39,12 +39,12 @@ public class Packet1Login extends Packet {
     public void a(DataOutputStream dataoutputstream) throws IOException {
         dataoutputstream.writeInt(this.a);
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		a(this.name, dataoutputstream);
-    	} else {
-    		dataoutputstream.writeUTF(this.name);
+        if (Uberbukkit.getPVN() >= 11) {
+            a(this.name, dataoutputstream);
+        } else {
+            dataoutputstream.writeUTF(this.name);
             dataoutputstream.writeUTF("");
-    	}
+        }
 
         dataoutputstream.writeLong(this.c);
         dataoutputstream.writeByte(this.d);

@@ -16,12 +16,12 @@ public class BlockLockedChest extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-    	// uberbukkit
-    	if (!PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", true)) {
-    		return true;
-    	}
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", true)) {
+            return true;
+        }
 
-    	int l = 0;
+        int l = 0;
 
         if (world.getTypeId(i - 1, j, k) == this.id) {
             ++l;
@@ -43,12 +43,12 @@ public class BlockLockedChest extends Block {
     }
 
     private boolean g(World world, int i, int j, int k) {
-    	return world.getTypeId(i, j, k) != this.id ? false : (world.getTypeId(i - 1, j, k) == this.id ? true : (world.getTypeId(i + 1, j, k) == this.id ? true : (world.getTypeId(i, j, k - 1) == this.id ? true : world.getTypeId(i, j, k + 1) == this.id)));
+        return world.getTypeId(i, j, k) != this.id ? false : (world.getTypeId(i - 1, j, k) == this.id ? true : (world.getTypeId(i + 1, j, k) == this.id ? true : (world.getTypeId(i, j, k - 1) == this.id ? true : world.getTypeId(i, j, k + 1) == this.id)));
     }
 
     public void a(World world, int i, int j, int k, Random random) {
-    	// uberbukkit
-    	if (!PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", true))
-    		world.setTypeId(i, j, k, 0);
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", true))
+            world.setTypeId(i, j, k, 0);
     }
 }

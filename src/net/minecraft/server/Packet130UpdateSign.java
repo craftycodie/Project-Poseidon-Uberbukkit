@@ -32,12 +32,12 @@ public class Packet130UpdateSign extends Packet {
         this.lines = new String[4];
 
         for (int i = 0; i < 4; ++i) {
-        	// uberbukkit
-        	if (Uberbukkit.getPVN() >= 11) {
-        		this.lines[i] = a(datainputstream, 15);
-        	} else {
-        		this.lines[i] = datainputstream.readUTF();
-        	}
+            // uberbukkit
+            if (Uberbukkit.getPVN() >= 11) {
+                this.lines[i] = a(datainputstream, 15);
+            } else {
+                this.lines[i] = datainputstream.readUTF();
+            }
         }
     }
 
@@ -47,12 +47,12 @@ public class Packet130UpdateSign extends Packet {
         dataoutputstream.writeInt(this.z);
 
         for (int i = 0; i < 4; ++i) {
-        	// uberbukkit
-        	if (Uberbukkit.getPVN() >= 11) {
-        		a(this.lines[i], dataoutputstream);
-        	} else {
-        		dataoutputstream.writeUTF(this.lines[i]);
-        	}
+            // uberbukkit
+            if (Uberbukkit.getPVN() >= 11) {
+                a(this.lines[i], dataoutputstream);
+            } else {
+                dataoutputstream.writeUTF(this.lines[i]);
+            }
         }
     }
 

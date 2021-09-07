@@ -21,23 +21,23 @@ public class Packet9Respawn extends Packet {
     }
 
     public void a(DataInputStream datainputstream) throws IOException {
-    	// uberbukkit
-    	if (Uberbukkit.getPVN() >= 12) {
-    		this.a = datainputstream.readByte();
-    	} else {
-    		this.a = 0;
-    	}
+        // uberbukkit
+        if (Uberbukkit.getPVN() >= 12) {
+            this.a = datainputstream.readByte();
+        } else {
+            this.a = 0;
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
-    	// uberbukkit
-    	if (Uberbukkit.getPVN() >= 12) {
-    		dataoutputstream.writeByte(this.a);
-    	}
+        // uberbukkit
+        if (Uberbukkit.getPVN() >= 12) {
+            dataoutputstream.writeByte(this.a);
+        }
     }
 
     public int a() {
-    	// uberbukkit
+        // uberbukkit
         return Uberbukkit.getPVN() >= 12 ? 1 : 0;
     }
 }

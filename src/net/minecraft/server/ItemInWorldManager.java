@@ -34,8 +34,8 @@ public class ItemInWorldManager {
 
     // uberbukkit
     public void resetDig() {
-    	this.i = false;
-    	this.lastDigTick = 0;
+        this.i = false;
+        this.lastDigTick = 0;
     }
 
     public void a_() {
@@ -123,13 +123,13 @@ public class ItemInWorldManager {
 
     // uberbukkit - stays for compatibility reasons
     public void a(int i, int j, int k) {
-    	this.a(i, j, k, true);
+        this.a(i, j, k, true);
     }
 
     // uberbukkit
     public void breakBlock() {
-    	int i = this.e,  j = this.f, k = this.g;
-    	int l = this.currentTick - this.lastDigTick;
+        int i = this.e,  j = this.f, k = this.g;
+        int l = this.currentTick - this.lastDigTick;
         int i1 = this.world.getTypeId(i, j, k);
 
         if (i1 != 0) {
@@ -150,7 +150,7 @@ public class ItemInWorldManager {
 
     // uberbukkit
     public void a_(int i, int j, int k, int l) {
-    	if (this.e_ > 0) {
+        if (this.e_ > 0) {
             --this.e_;
         } else {
             if (i == this.e && j == this.f && k == this.g) {
@@ -181,9 +181,9 @@ public class ItemInWorldManager {
             this.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
             // uberbukkit
             if (breaK) {
-            	this.breakBlock();
+                this.breakBlock();
             }
-        // CraftBukkit start - force blockreset to client
+            // CraftBukkit start - force blockreset to client
         } else {
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             // CraftBukkit end

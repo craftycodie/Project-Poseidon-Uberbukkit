@@ -17,21 +17,21 @@ public class Packet2Handshake extends Packet {
     }
 
     public void a(DataInputStream datainputstream) throws IOException {
-    	// uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		this.a = a(datainputstream, 32);
-    	} else {
-    		this.a = datainputstream.readUTF();
-    	}
+        // uberbukkit
+        if (Uberbukkit.getPVN() >= 11) {
+            this.a = a(datainputstream, 32);
+        } else {
+            this.a = datainputstream.readUTF();
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
-    	// uberbukkit
-    	if (Uberbukkit.getPVN() >= 11) {
-    		a(this.a, dataoutputstream);
-    	} else {
-    		dataoutputstream.writeUTF(this.a);
-    	}
+        // uberbukkit
+        if (Uberbukkit.getPVN() >= 11) {
+            a(this.a, dataoutputstream);
+        } else {
+            dataoutputstream.writeUTF(this.a);
+        }
     }
 
     public void a(NetHandler nethandler) {

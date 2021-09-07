@@ -70,8 +70,8 @@ public class EntityTrackerEntry {
 
         ++this.t;
         if (++this.l % this.c == 0) {
-        	// encoded means multiplied by 32
-        	// this is required to send it to the client, as the relative position is sent as the float multiplied by 32
+            // encoded means multiplied by 32
+            // this is required to send it to the client, as the relative position is sent as the float multiplied by 32
             int newEncodedPosX = MathHelper.floor(this.tracker.locX * 32.0D);
             int newEncodedPosY = MathHelper.floor(this.tracker.locY * 32.0D);
             int newEncodedPosZ = MathHelper.floor(this.tracker.locZ * 32.0D);
@@ -86,14 +86,14 @@ public class EntityTrackerEntry {
             int movementUpdateTreshold = 1;
             int rotationUpdateTreshold = 1;
             boolean needsPositionUpdate = Math.abs(encodedDiffX) >= movementUpdateTreshold || Math.abs(encodedDiffY) >= movementUpdateTreshold || Math.abs(encodedDiffZ) >= movementUpdateTreshold
-            		|| tracker instanceof EntityBoat || tracker instanceof EntityMinecart;
-            
+                    || tracker instanceof EntityBoat || tracker instanceof EntityMinecart;
+
             boolean needsRotationUpdate = Math.abs(newEncodedRotationYaw - this.g) >= rotationUpdateTreshold || Math.abs(newEncodedRotationPitch - this.h) >= rotationUpdateTreshold;
 
             if (encodedDiffX >= -128 && encodedDiffX < 128 && encodedDiffY >= -128 && encodedDiffY < 128 && encodedDiffZ >= -128 && encodedDiffZ < 128 && this.t <= 400) {
-            	// entity has moved less than 4 blocks
+                // entity has moved less than 4 blocks
                 if (needsPositionUpdate && needsRotationUpdate) {
-                	packet = new Packet33RelEntityMoveLook(this.tracker.id, (byte) encodedDiffX, (byte) encodedDiffY, (byte) encodedDiffZ, (byte) newEncodedRotationYaw, (byte) newEncodedRotationPitch);
+                    packet = new Packet33RelEntityMoveLook(this.tracker.id, (byte) encodedDiffX, (byte) encodedDiffY, (byte) encodedDiffZ, (byte) newEncodedRotationYaw, (byte) newEncodedRotationPitch);
                 } else if (needsPositionUpdate) {
                     packet = new Packet31RelEntityMove(this.tracker.id, (byte) encodedDiffX, (byte) encodedDiffY, (byte) encodedDiffZ);
                 } else if (needsRotationUpdate) {
@@ -130,13 +130,13 @@ public class EntityTrackerEntry {
 
             // uberbukkit
             if (Uberbukkit.getProtocolHandler().canReceivePacket(40)) {
-            	DataWatcher datawatcher = this.tracker.aa();
+                DataWatcher datawatcher = this.tracker.aa();
 
                 if (datawatcher.a()) {
                     this.b((Packet) (new Packet40EntityMetadata(this.tracker.id, datawatcher)));
                 }
             } else {
-            	if (this.b_ && this.tracker.vehicle == null) {
+                if (this.b_ && this.tracker.vehicle == null) {
                     this.b_ = false;
                     this.b((Packet) (new Packet18ArmAnimation(this.tracker, 101)));
                 } else if (!this.b_ && this.tracker.vehicle != null) {
@@ -249,7 +249,7 @@ public class EntityTrackerEntry {
 
                     // uberbukkit
                     if (!Uberbukkit.getProtocolHandler().canReceivePacket(40)) {
-                    	if (this.d_) {
+                        if (this.d_) {
                             entityplayer.netServerHandler.sendPacket((Packet) (new Packet18ArmAnimation(this.tracker, 104)));
                         }
 
@@ -340,7 +340,7 @@ public class EntityTrackerEntry {
                 EntityLiving entityliving = ((EntityArrow) this.tracker).shooter;
 
                 return new Packet23VehicleSpawn(this.tracker, 60, entityliving != null ? entityliving.id : this.tracker.id);
-            // uberbukkit
+                // uberbukkit
             } else if (this.tracker instanceof EntitySnowball || (this.tracker instanceof EntityFireball && Uberbukkit.getPVN() < 12)) {
                 return new Packet23VehicleSpawn(this.tracker, 61);
             } else if (this.tracker instanceof EntityFireball && Uberbukkit.getPVN() >= 12) {

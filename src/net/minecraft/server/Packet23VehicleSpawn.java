@@ -74,16 +74,16 @@ public class Packet23VehicleSpawn extends Packet {
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 13) {
-    		this.i = datainputstream.readInt();
+        if (Uberbukkit.getPVN() >= 13) {
+            this.i = datainputstream.readInt();
             if (this.i > 0) {
                 this.e = datainputstream.readShort();
                 this.f = datainputstream.readShort();
                 this.g = datainputstream.readShort();
             }
-    	} else {
-    		this.i = 0;
-    	}
+        } else {
+            this.i = 0;
+        }
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
@@ -93,14 +93,14 @@ public class Packet23VehicleSpawn extends Packet {
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         // uberbukkit
-    	if (Uberbukkit.getPVN() >= 13) {
-    		dataoutputstream.writeInt(this.i);
+        if (Uberbukkit.getPVN() >= 13) {
+            dataoutputstream.writeInt(this.i);
             if (this.i > 0) {
                 dataoutputstream.writeShort(this.e);
                 dataoutputstream.writeShort(this.f);
                 dataoutputstream.writeShort(this.g);
             }
-    	}
+        }
     }
 
     public void a(NetHandler nethandler) {
@@ -108,7 +108,7 @@ public class Packet23VehicleSpawn extends Packet {
     }
 
     public int a() {
-    	// uberbukkit
+        // uberbukkit
         return Uberbukkit.getPVN() >= 13 ? (21 + this.i > 0 ? 6 : 0) : 17;
     }
 }

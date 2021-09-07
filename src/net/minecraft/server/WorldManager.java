@@ -39,9 +39,9 @@ public class WorldManager implements IWorldAccess {
     }
 
     public void a(EntityHuman entityhuman, int i, int j, int k, int l, int i1) {
-    	// uberbukkit
-    	if (Uberbukkit.getProtocolHandler().canReceivePacket(61)) {
-    		this.server.serverConfigurationManager.sendPacketNearby(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.dimension, new Packet61(i, j, k, l, i1)); // CraftBukkit
-    	}
+        // uberbukkit
+        if (Uberbukkit.getProtocolHandler().canReceivePacket(61)) {
+            this.server.serverConfigurationManager.sendPacketNearby(entityhuman, (double) j, (double) k, (double) l, 64.0D, this.world.dimension, new Packet61(i, j, k, l, i1)); // CraftBukkit
+        }
     }
 }

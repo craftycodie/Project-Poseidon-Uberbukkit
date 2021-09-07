@@ -11,11 +11,11 @@ public class BlockLightStone extends Block {
     }
 
     public int a(Random random) {
-    	// uberbukkit
-    	if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.glowstone_pre1_6_6", false))
-    		return 2 + random.nextInt(3);
+        // uberbukkit
+        if (!PoseidonConfig.getInstance().getBoolean("version.mechanics.glowstone_pre1_6_6", false))
+            return 2 + random.nextInt(3);
 
-    	return super.a(random);
+        return super.a(random);
     }
 
     public int a(int i, Random random) {
