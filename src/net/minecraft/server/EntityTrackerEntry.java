@@ -340,9 +340,10 @@ public class EntityTrackerEntry {
                 EntityLiving entityliving = ((EntityArrow) this.tracker).shooter;
 
                 return new Packet23VehicleSpawn(this.tracker, 60, entityliving != null ? entityliving.id : this.tracker.id);
-            } else if (this.tracker instanceof EntitySnowball) {
+            // uberbukkit
+            } else if (this.tracker instanceof EntitySnowball || (this.tracker instanceof EntityFireball && Uberbukkit.getPVN() < 12)) {
                 return new Packet23VehicleSpawn(this.tracker, 61);
-            } else if (this.tracker instanceof EntityFireball) {
+            } else if (this.tracker instanceof EntityFireball && Uberbukkit.getPVN() >= 12) {
                 EntityFireball entityfireball = (EntityFireball) this.tracker;
                 // CraftBukkit start - added check for null shooter
                 int shooter = ((EntityFireball) this.tracker).shooter != null ? ((EntityFireball) this.tracker).shooter.id : 1;

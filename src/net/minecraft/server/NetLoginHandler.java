@@ -167,7 +167,13 @@ public class NetLoginHandler extends NetHandler {
             netserverhandler.setRawConnectionType(rawConnectionType);
             netserverhandler.setReceivedKeepAlive(receivedKeepAlive);
             //Poseidon End
-            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), (byte) worldserver.worldProvider.dimension));
+            // uberbukkit
+            byte dim = (byte) worldserver.worldProvider.dimension;
+            if (Uberbukkit.getPVN() < 12) {
+            	dim = 0;
+            }
+
+            netserverhandler.sendPacket(new Packet1Login("", entityplayer.id, worldserver.getSeed(), dim));
             netserverhandler.sendPacket(new Packet6SpawnPosition(chunkcoordinates.x, chunkcoordinates.y, chunkcoordinates.z));
             this.server.serverConfigurationManager.a(entityplayer, worldserver);
             // this.server.serverConfigurationManager.sendAll(new Packet3Chat("\u00A7e" + entityplayer.name + " joined the game."));  // CraftBukkit - message moved to join event

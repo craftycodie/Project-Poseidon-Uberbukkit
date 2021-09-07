@@ -74,6 +74,8 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("settings.check-username-validity.min-length", 3);
         // Uberbukkit settings
         generateConfigOption("version.worldgen.cocoabeans_loot", true);
+        generateConfigOption("version.worldgen.pre_b1_2_ore_generation", false);
+        generateConfigOption("version.worldgen.pre_b1_2_tree_generation", false);
         generateConfigOption("version.worldgen.generate_sandstone", true);
         generateConfigOption("version.worldgen.biomes.generate_spruces", true);
         generateConfigOption("version.worldgen.biomes.generate_birches", true);

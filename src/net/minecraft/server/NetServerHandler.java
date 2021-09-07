@@ -551,19 +551,15 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
             // uberbukkit
             } else if ((Uberbukkit.getPVN() < 9 && packet14blockdig.e == 2)) {
-            	this.player.itemInWorldManager.resetDig();
-            } else if ((Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2)
-            		|| (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1)) {
-                this.player.itemInWorldManager.a(i, j, k, Uberbukkit.getPVN() >= 9);
+            	this.player.itemInWorldManager.a_();
+            } else if (Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2) {
+                this.player.itemInWorldManager.a(i, j, k, true);
                 if (worldserver.getTypeId(i, j, k) != 0) {
                     this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
+            } else if (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1) {
+            	this.player.itemInWorldManager.a_(i, j, k, packet14blockdig.face);
             } else if (packet14blockdig.e == 3) {
-            	// uberbukkit
-            	if (Uberbukkit.getPVN() < 9) {
-            		this.player.itemInWorldManager.breakBlock();
-            	}
-
                 double d4 = this.player.locX - ((double) i + 0.5D);
                 double d5 = this.player.locY - ((double) j + 0.5D);
                 double d6 = this.player.locZ - ((double) k + 0.5D);

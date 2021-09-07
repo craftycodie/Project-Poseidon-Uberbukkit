@@ -15,7 +15,8 @@ public class ItemInWorldManager {
 
     private WorldServer world;
     public EntityHuman player;
-    private float c = 0.0F;
+    private float d_ = 0.0F;
+    private int e_ = 0;
     private int lastDigTick;
     private int e;
     private int f;
@@ -35,6 +36,11 @@ public class ItemInWorldManager {
     public void resetDig() {
     	this.i = false;
     	this.lastDigTick = 0;
+    }
+
+    public void a_() {
+        this.d_ = 0.0F;
+        this.e_ = 0;
     }
 
     public void a() {
@@ -142,6 +148,34 @@ public class ItemInWorldManager {
         }
     }
 
+    // uberbukkit
+    public void a_(int i, int j, int k, int l) {
+    	if (this.e_ > 0) {
+            --this.e_;
+        } else {
+            if (i == this.e && j == this.f && k == this.g) {
+                int i1 = this.world.getTypeId(i, j, k);
+
+                if (i1 == 0) {
+                    return;
+                }
+                Block block = Block.byId[i1];
+
+                this.d_ += block.getDamage(this.player);
+                if (this.d_ >= 1.0F) {
+                    this.c(i, j, k);
+                    this.d_ = 0.0F;
+                    this.e_ = 5;
+                }
+            } else {
+                this.d_ = 0.0F;
+                this.e = i;
+                this.f = j;
+                this.g = k;
+            }
+        }
+    }
+
     public void a(int i, int j, int k, boolean breaK) {
         if (i == this.e && j == this.f && k == this.g) {
             this.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
@@ -155,7 +189,7 @@ public class ItemInWorldManager {
             // CraftBukkit end
         }
 
-        this.c = 0.0F;
+        this.d_ = 0.0F;
     }
 
     public boolean b(int i, int j, int k) {

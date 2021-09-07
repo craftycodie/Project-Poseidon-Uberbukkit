@@ -97,6 +97,9 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void sendRawMessage(String message) {
+    	// uberbukkit - fix worldedit cui
+    	if (Uberbukkit.getPVN() < 11 && message.equals("\u00A75\u00A76\u00A74\u00A75")) return;
+
         getHandle().netServerHandler.sendPacket(new Packet3Chat(message));
     }
 

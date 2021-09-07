@@ -1,10 +1,9 @@
 package net.minecraft.server;
 
+import java.util.Calendar;
 import java.util.Random;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
-
-import pl.moresteck.uberbukkit.Uberbukkit;
 
 public class ChunkProviderGenerate implements IChunkProvider {
 
@@ -468,12 +467,26 @@ public class ChunkProviderGenerate implements IChunkProvider {
             l1 -= 20;
         }
 
+        // uberbukkit
+        Object object = biomebase.a(this.j);
+        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.pre_b1_2_ore_generation", false)) {
+        	object = new WorldGenTrees();
+        	if (this.j.nextInt(10) == 0) {
+                object = new WorldGenBigTree();
+            }
+
+        	if (biomebase == BiomeBase.RAINFOREST && this.j.nextInt(3) == 0) {
+                object = new WorldGenBigTree();
+        	}
+        }
+
         int k2;
 
         for (i2 = 0; i2 < l1; ++i2) {
             j2 = k + this.j.nextInt(16) + 8;
             k2 = l + this.j.nextInt(16) + 8;
-            WorldGenerator worldgenerator = biomebase.a(this.j);
+            // uberbukkit
+            WorldGenerator worldgenerator = (WorldGenerator) object;
 
             worldgenerator.a(1.0D, 1.0D, 1.0D);
             worldgenerator.a(this.p, this.j, j2, this.p.getHighestBlockYAt(j2, k2), k2);
@@ -636,6 +649,17 @@ public class ChunkProviderGenerate implements IChunkProvider {
                 if (d1 < 0.5D && l3 > 0 && l3 < 128 && this.p.isEmpty(i3, l3, l2) && this.p.getMaterial(i3, l3 - 1, l2).isSolid() && this.p.getMaterial(i3, l3 - 1, l2) != Material.ICE) {
                     this.p.setTypeId(i3, l3, l2, Block.SNOW.id);
                 }
+            }
+        }
+
+        // uberbukkit
+        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.generate_steveco_chests", false)) {
+        	k2 = k + this.j.nextInt(16) + 8;
+            l2 = this.j.nextInt(128);
+            i3 = l + this.j.nextInt(16) + 8;
+            if (this.p.getTypeId(k2, l2, i3) == 0 && this.p.p(k2, l2 - 1, i3)) {
+                System.out.println("added a chest!!");
+                this.p.setTypeId(k2, l2, i3, Block.LOCKED_CHEST.id);
             }
         }
 
