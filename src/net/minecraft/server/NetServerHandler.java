@@ -764,7 +764,15 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             this.player.compassTarget = new Location(this.getPlayer().getWorld(), packet6.x, packet6.y, packet6.z);
         } else if (packet instanceof Packet3Chat) {
             String message = ((Packet3Chat) packet).message;
-            for (final String line : TextWrapper.wrapText(message)) {
+            // uberbukkit
+            String[] wrapped = null;
+            if (Uberbukkit.getPVN() >= 9) { // TODO check compatibility
+            	wrapped = TextWrapper.wrapText(message);
+            } else {
+            	wrapped = TextWrapper.wrapTextLegacy(message);
+            }
+
+            for (final String line : wrapped) {
                 this.networkManager.queue(new Packet3Chat(line));
             }
             packet = null;
