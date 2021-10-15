@@ -17,8 +17,8 @@ public class WorldGenMinable extends WorldGenerator {
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.ores.custom_seed", false)) {
-            String text = PoseidonConfig.getInstance().getString("version.worldgen.ores.seed");
+        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.ores." + world.worldData.name + ".custom_seed", false)) {
+            String text = PoseidonConfig.getInstance().getString("version.worldgen.ores." + world.worldData.name + ".seed");
             long seed = 0L;
             if (text != null) {
                 seed = Long.parseLong(text);
