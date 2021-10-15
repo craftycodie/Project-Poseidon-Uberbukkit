@@ -18,7 +18,10 @@ import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.StorageMinecart;
 import org.bukkit.event.Event;
+import org.bukkit.event.Event.Type;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.packet.PacketReceivedEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
@@ -136,6 +139,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
     // CraftBukkit end
 
+    // uberbukkit
+    public Integer lastDigX = null;
+    public Integer lastDigY = null;
+    public Integer lastDigZ = null;
+    
     public void a() {
         this.i = false;
         this.networkManager.b();
@@ -485,6 +493,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             return;
 
         if (this.player.dead) return; // CraftBukkit
+        if (packet14blockdig.e == 1) return; // uberbukkit
 
         WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 
@@ -508,19 +517,36 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             boolean flag = worldserver.weirdIsOpCache = worldserver.dimension != 0 || this.minecraftServer.serverConfigurationManager.isOp(this.player.name); // CraftBukkit
             boolean flag1 = false;
 
-            if (packet14blockdig.e == 0) {
-                flag1 = true;
-            }
-
             // uberbukkit
-            if ((Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2)
-                    || (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1)) {
+
+            // Pre-b1.3 block handling
+            // e == 2 is stop digging (holds no block coordinate data)
+            // e == 3 is expected block break from client
+            // e == 1 is digging
+            // e == 0 is start digging, or digging every 5 packets (notch is weird)
+            Integer i = packet14blockdig.a;
+            Integer j = packet14blockdig.b;
+            Integer k = packet14blockdig.c;
+
+            if (packet14blockdig.e == 0) {
+                // uberbukkit - adjust for packet weirdness
+                if (lastDigX == i && lastDigY == j && lastDigZ == k) {
+                    return;
+                }
                 flag1 = true;
             }
 
-            int i = packet14blockdig.a;
-            int j = packet14blockdig.b;
-            int k = packet14blockdig.c;
+            if (packet14blockdig.e == 2) {
+                // uberbukkit
+                if (Uberbukkit.getPVN() >= 9) {
+                    flag1 = true;
+                }
+            } else {
+                // uberbukkit
+                lastDigX = i;
+                lastDigY = j;
+                lastDigZ = k;
+            }
 
             if (flag1) {
                 double d0 = this.player.locX - ((double) i + 0.5D);
@@ -549,16 +575,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     // CraftBukkit - add face argument
                     this.player.itemInWorldManager.dig(i, j, k, packet14blockdig.face);
                 }
-                // uberbukkit
-            } else if ((Uberbukkit.getPVN() < 9 && packet14blockdig.e == 2)) {
-                this.player.itemInWorldManager.a_();
-            } else if (Uberbukkit.getPVN() >= 9 && packet14blockdig.e == 2) {
-                this.player.itemInWorldManager.a(i, j, k, true);
-                if (worldserver.getTypeId(i, j, k) != 0) {
-                    this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
+            } else if ((packet14blockdig.e == 2 && Uberbukkit.getPVN() >= 9) ||
+                    (packet14blockdig.e == 3 && Uberbukkit.getPVN() < 9)) {
+                // uberbukkit - swapped i,j,k for lastDigX,lastDigY,lastDigZ
+                this.player.itemInWorldManager.a(lastDigX, lastDigY, lastDigZ);
+                if (worldserver.getTypeId(lastDigX, lastDigY, lastDigZ) != 0) {
+                    this.player.netServerHandler.sendPacket(new Packet53BlockChange(lastDigX, lastDigY, lastDigZ, worldserver));
                 }
-            } else if (Uberbukkit.getPVN() < 9 && packet14blockdig.e == 1) {
-                this.player.itemInWorldManager.a_(i, j, k, packet14blockdig.face);
             } else if (packet14blockdig.e == 3) {
                 double d4 = this.player.locX - ((double) i + 0.5D);
                 double d5 = this.player.locY - ((double) j + 0.5D);
@@ -568,6 +591,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 if (d7 < 256.0D) {
                     this.player.netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, worldserver));
                 }
+            }
+
+            // uberbukkit - reset last positions when stops digging
+            if (packet14blockdig.e == 2) {
+                lastDigX = null;
+                lastDigY = null;
+                lastDigZ = null;
             }
 
             worldserver.weirdIsOpCache = false;
@@ -585,6 +615,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
         // CraftBukkit start
         if (this.player.dead) return;
+
+        // uberbukkit: noptch what the fuck have you done
+        if (Uberbukkit.getPVN() < 8) {
+            if (packet15place.itemstack != null && packet15place.a != -1 && packet15place.b != 255 && packet15place.c != -1 && (packet15place.itemstack.id == Item.BUCKET.id || packet15place.itemstack.id == Item.WATER_BUCKET.id || packet15place.itemstack.id == Item.LAVA_BUCKET.id || packet15place.itemstack.id == Item.MILK_BUCKET.id)) {
+                return;
+            }
+        }
 
         // This is a horrible hack needed because the client sends 2 packets on 'right mouse click'
         // aimed at a block. We shouldn't need to get the second packet if the data is handled
