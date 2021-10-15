@@ -17,6 +17,15 @@ public class WorldGenMinable extends WorldGenerator {
     }
 
     public boolean a(World world, Random random, int i, int j, int k) {
+        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.ores.custom_seed", false)) {
+            String text = PoseidonConfig.getInstance().getString("version.worldgen.ores.seed");
+            long seed = 0L;
+            if (text != null) {
+                seed = Long.parseLong(text);
+            }
+            random = new Random(seed);
+        }
+
         float f = random.nextFloat() * 3.1415927F;
         double d0 = (double) ((float) (i + 8) + MathHelper.sin(f) * (float) this.b / 8.0F);
         double d1 = (double) ((float) (i + 8) - MathHelper.sin(f) * (float) this.b / 8.0F);
