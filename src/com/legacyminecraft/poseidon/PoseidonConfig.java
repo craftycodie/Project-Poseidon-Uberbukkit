@@ -36,6 +36,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("config-version", 2);
         //Setting
         generateConfigOption("settings.allow-graceful-uuids", true);
+        generateConfigOption("settings.uuids-source-port", -1);
         generateConfigOption("settings.delete-duplicate-uuids", false);
         generateConfigOption("settings.save-playerdata-by-uuid", true);
         generateConfigOption("settings.per-day-logfile", false);

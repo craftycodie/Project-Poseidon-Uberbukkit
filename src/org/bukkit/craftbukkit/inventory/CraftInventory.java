@@ -55,7 +55,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
         for (int i = 0; i < items.length; i++) {
             ItemStack item = items[i];
             // uberbukkit
-        	if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+        	if (item != null && !Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
         		continue;
         	}
 
@@ -69,8 +69,8 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
     public void setItem(int index, ItemStack item) {
     	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
-    		return;
+    	if (item != null && !Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+    		item = null;
     	}
 
         getInventory().setItem(index, (item == null ? null : new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability())));
@@ -238,7 +238,7 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
             ItemStack item = items[i];
 
             // uberbukkit
-        	if (!Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
+        	if (item != null && !Uberbukkit.getProtocolHandler().canReceiveBlockItem(item.getTypeId())) {
         		return leftover;
         	}
             
