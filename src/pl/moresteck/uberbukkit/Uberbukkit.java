@@ -8,8 +8,11 @@ import net.minecraft.server.MinecraftServer;
 import pl.moresteck.uberbukkit.protocol.Protocol;
 
 public class Uberbukkit {
+    private static Integer pvn = null;
 
     public static int getPVN() {
+        if (pvn != null) return pvn;
+
         String pvnstr = PoseidonConfig.getInstance().getString("version.allow_join.protocol", "14");
         int pvn = 14;
 
@@ -20,6 +23,7 @@ public class Uberbukkit {
             Bukkit.getServer().shutdown();
         }
 
+        Uberbukkit.pvn = pvn;
         return pvn;
     }
 
