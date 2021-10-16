@@ -579,7 +579,8 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                     (packet14blockdig.e == 3 && Uberbukkit.getPVN() < 9)) {
                 // uberbukkit - swapped i,j,k for lastDigX,lastDigY,lastDigZ
                 this.player.itemInWorldManager.a(lastDigX, lastDigY, lastDigZ);
-                if (worldserver.getTypeId(lastDigX, lastDigY, lastDigZ) != 0) {
+                if (Uberbukkit.getPVN() >= 9 && worldserver.getTypeId(lastDigX, lastDigY, lastDigZ) != 0) {
+                    // prevent update to avoid block lag
                     this.player.netServerHandler.sendPacket(new Packet53BlockChange(lastDigX, lastDigY, lastDigZ, worldserver));
                 }
             } else if (packet14blockdig.e == 3) {
