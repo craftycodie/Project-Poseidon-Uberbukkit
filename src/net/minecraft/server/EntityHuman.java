@@ -15,6 +15,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import java.util.Iterator;
 import java.util.List;
 
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 // CraftBukkit start
 // CraftBukkit end
 
