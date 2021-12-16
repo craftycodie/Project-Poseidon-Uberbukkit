@@ -107,6 +107,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.spawn_sheep_with_shades_of_black", true);
         generateConfigOption("version.mechanics.spawn_brown_and_pink_sheep", true);
         generateConfigOption("version.mechanics.drop_saplings_of_leaf_type", true);
+        generateConfigOption("version.mechanics.spiders_trample_crops", false);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
         generateConfigOption("version.allow_join.protocol", "7");

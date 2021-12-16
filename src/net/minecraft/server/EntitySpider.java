@@ -5,6 +5,10 @@ import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.event.entity.EntityTargetEvent;
 // CraftBukkit end
 
+//uberbukkit start
+import pl.moresteck.uberbukkit.Uberbukkit;
+//uberbukkit end
+
 public class EntitySpider extends EntityMonster {
 
     public EntitySpider(World world) {
@@ -19,7 +23,7 @@ public class EntitySpider extends EntityMonster {
     }
 
     protected boolean n() {
-        return false;
+        return Uberbukkit.getPVN() < 10;
     }
 
     protected Entity findTarget() {
@@ -93,6 +97,6 @@ public class EntitySpider extends EntityMonster {
     }
 
     public boolean p() {
-        return this.positionChanged;
+        return Uberbukkit.getPVN() >= 8 ? this.positionChanged : super.p();
     }
 }
