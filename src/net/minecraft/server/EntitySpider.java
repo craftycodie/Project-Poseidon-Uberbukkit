@@ -6,7 +6,7 @@ import org.bukkit.event.entity.EntityTargetEvent;
 // CraftBukkit end
 
 //uberbukkit start
-import pl.moresteck.uberbukkit.Uberbukkit;
+import com.legacyminecraft.poseidon.PoseidonConfig;
 //uberbukkit end
 
 public class EntitySpider extends EntityMonster {
@@ -23,7 +23,7 @@ public class EntitySpider extends EntityMonster {
     }
 
     protected boolean n() {
-        return Uberbukkit.getPVN() < 10;
+        return PoseidonConfig.getInstance().getBoolean("version.mechanics.spiders_trample_crops", false);
     }
 
     protected Entity findTarget() {
@@ -97,6 +97,6 @@ public class EntitySpider extends EntityMonster {
     }
 
     public boolean p() {
-        return Uberbukkit.getPVN() >= 8 ? this.positionChanged : super.p();
+        return PoseidonConfig.getInstance().getBoolean("version.mechanics.spiders_climb_walls", true) ? this.positionChanged : super.p();
     }
 }
