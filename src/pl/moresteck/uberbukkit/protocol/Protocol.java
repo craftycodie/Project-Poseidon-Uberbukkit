@@ -7,6 +7,8 @@ public interface Protocol {
 
 	static Protocol getProtocolClass(int pvn) {
 		switch (pvn) {
+		    case 6:
+		        return new Protocol6();
 			case 7:
 				return new Protocol7();
 			case 8:

@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,12 +12,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.event.PlayerDeathEvent;
 import com.projectposeidon.api.PoseidonUUID;
 
+import pl.moresteck.uberbukkit.ProcessPacket5;
 import pl.moresteck.uberbukkit.Uberbukkit;
 import pl.moresteck.uberbukkit.protocol.Protocol;
 
@@ -37,9 +41,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public boolean h;
     // uberbukkit
     public Protocol protocol;
+    public ProcessPacket5 packet5;
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager, int pvn) {
         super(world);
+        this.packet5 = new ProcessPacket5(this); // uberbukkit
         this.protocol = Protocol.getProtocolClass(pvn); // uberbukkit
         iteminworldmanager.player = this;
         this.itemInWorldManager = iteminworldmanager;
@@ -99,6 +105,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void syncInventory() {
+        if (Uberbukkit.getPVN() <= 6) {
+            this.netServerHandler.refreshInventory();
+        }
         this.activeContainer.a((ICrafting) this);
     }
 
@@ -147,6 +156,12 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             if (this.inventory.armor[i] != null) {
                 loot.add(new CraftItemStack(this.inventory.armor[i]));
             }
+        }
+
+        // uberbukkit
+        ArrayList<ItemStack> queue = this.packet5.queue.dropAllQueue();
+        for (ItemStack item : queue) {
+            loot.add(new CraftItemStack(item));
         }
 
         org.bukkit.entity.Entity bukkitEntity = this.getBukkitEntity();
@@ -426,7 +441,15 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void a(Container container, int i, ItemStack itemstack) {
         if (!(container.b(i) instanceof SlotResult)) {
             if (!this.h) {
-                this.netServerHandler.sendPacket(new Packet103SetSlot(container.windowId, i, itemstack));
+                // uberbukkit
+                if (Uberbukkit.getPVN() <= 6) {
+                    this.netServerHandler.refreshInventory();
+                    //this.netServerHandler.sendPacket(new Packet5EntityEquipment(-1, this.inventory.items));
+                    //this.netServerHandler.sendPacket(new Packet5EntityEquipment(-2, this.inventory.craft));
+                    //this.netServerHandler.sendPacket(new Packet5EntityEquipment(-3, this.inventory.armor));
+                } else {
+                    this.netServerHandler.sendPacket(new Packet103SetSlot(container.windowId, i, itemstack));
+                }
             }
         }
     }
@@ -436,8 +459,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void a(Container container, List list) {
-        this.netServerHandler.sendPacket(new Packet104WindowItems(container.windowId, list));
-        this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.j()));
+        // uberbukkit
+        if (Uberbukkit.getPVN() <= 6) {
+            this.netServerHandler.refreshInventory();
+        } else {
+            this.netServerHandler.sendPacket(new Packet104WindowItems(container.windowId, list));
+            this.netServerHandler.sendPacket(new Packet103SetSlot(-1, -1, this.inventory.j()));
+        }
     }
 
     public void a(Container container, int i, int j) {
@@ -499,6 +527,21 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
         if (this.sleeping) {
             this.a(true, false, false);
+        }
+
+        System.out.println("GOODBYE");
+        // uberbukkit - drop item queue on disconnect
+        if (Uberbukkit.getPVN() <= 6) {
+            ArrayList<ItemStack> queue = this.packet5.queue.dropAllQueue();
+            Player bukkitEntity = (Player) this.getBukkitEntity();
+            for (ItemStack item : queue) {
+                System.out.println("Drop queue id: " + item.id + ", dmg: " + item.damage + ", cnt: " + item.count);
+                HashMap<Integer, org.bukkit.inventory.ItemStack> map = bukkitEntity.getInventory().addItem(new CraftItemStack(item));
+                // drop what couldn't fit in the inventory
+                for (org.bukkit.inventory.ItemStack stack : map.values()) {
+                    bukkitEntity.getWorld().dropItemNaturally(bukkitEntity.getLocation(), stack);
+                }
+            }
         }
     }
 

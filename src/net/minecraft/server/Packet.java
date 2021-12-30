@@ -190,7 +190,7 @@ public abstract class Packet {
         a(2, true, true, Packet2Handshake.class);
         a(3, true, true, Packet3Chat.class);
         a(4, true, false, Packet4UpdateTime.class);
-        a(5, true, false, Packet5EntityEquipment.class);
+        a(5, true, true, Packet5EntityEquipment.class);
         a(6, true, false, Packet6SpawnPosition.class);
         a(7, false, true, Packet7UseEntity.class);
         a(8, true, false, Packet8UpdateHealth.class);
@@ -206,7 +206,7 @@ public abstract class Packet {
         a(18, true, true, Packet18ArmAnimation.class);
         a(19, false, true, Packet19EntityAction.class);
         a(20, true, false, Packet20NamedEntitySpawn.class);
-        a(21, true, false, Packet21PickupSpawn.class);
+        a(21, true, true, Packet21PickupSpawn.class);
         a(22, true, false, Packet22Collect.class);
         a(23, true, false, Packet23VehicleSpawn.class);
         a(24, true, false, Packet24MobSpawn.class);
