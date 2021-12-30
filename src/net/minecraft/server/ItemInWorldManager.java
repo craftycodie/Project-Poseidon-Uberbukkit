@@ -15,7 +15,7 @@ public class ItemInWorldManager {
 
     private WorldServer world;
     public EntityHuman player;
-    private float c = 0.0F;
+    private int c = 0;
     private int lastDigTick;
     private int e;
     private int f;
@@ -27,9 +27,60 @@ public class ItemInWorldManager {
     private int l;
     private int m;
 
+    public double damageDealt;
+
     public ItemInWorldManager(WorldServer worldserver) {
         this.world = worldserver;
     }
+
+    // ======= UBERBUKKIT PRE-b1.3 AREA =======
+
+    public void oldDig(int i, int j, int k) {
+        int l = this.world.getTypeId(i, j, k);
+
+        if (l > 0 && this.damageDealt == 0.0F) {
+            Block.byId[l].b(this.world, i, j, k, this.player);
+        }
+
+        if (l > 0 && Block.byId[l].getDamage(this.player) >= 1.0F) {
+            this.c(i, j, k);
+        }
+    }
+
+    public void oldHaltBreak() {
+        this.damageDealt = 0.0F;
+        this.c = 0;
+    }
+
+    public void oldDig(int i, int j, int k, int l) {
+        if (this.c > 0) {
+            --this.c;
+        } else {
+            if (i == this.e && j == this.f && k == this.g) {
+                int i1 = this.world.getTypeId(i, j, k);
+
+                if (i1 == 0) {
+                    return;
+                }
+
+                Block block = Block.byId[i1];
+
+                this.damageDealt += block.getDamage(this.player);
+                if (this.damageDealt >= 1.0F) {
+                    this.c(i, j, k);
+                    this.damageDealt = 0.0F;
+                    this.c = 5;
+                }
+            } else {
+                this.damageDealt = 0.0F;
+                this.e = i;
+                this.f = j;
+                this.g = k;
+            }
+        }
+    }
+
+    // ======= END =======
 
     public void a() {
         this.currentTick = (int) (System.currentTimeMillis() / 50); // CraftBukkit
@@ -134,8 +185,6 @@ public class ItemInWorldManager {
             ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             // CraftBukkit end
         }
-
-        this.c = 0.0F;
     }
 
     public boolean b(int i, int j, int k) {

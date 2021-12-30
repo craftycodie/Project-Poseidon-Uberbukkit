@@ -42,6 +42,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     // uberbukkit
     public Protocol protocol;
     public ProcessPacket5 packet5;
+    public boolean isInWorkbench = false; // uberbukkit pvn < 7
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager, int pvn) {
         super(world);
@@ -529,7 +530,6 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             this.a(true, false, false);
         }
 
-        System.out.println("GOODBYE");
         // uberbukkit - drop item queue on disconnect
         if (Uberbukkit.getPVN() <= 6) {
             ArrayList<ItemStack> queue = this.packet5.queue.dropAllQueue();

@@ -23,10 +23,29 @@ public class ProcessPacket5 {
         InventoryQueue unfinalized = this.queue.clone();
 
         // scan inventories for changes
-        ItemStack[] stackarray = packet.a == -1 ? player.inventory.items : (packet.a == -3 ? player.inventory.armor : new ItemStack[0]);
+        ItemStack[] stackarray = packet.a == -1 ? player.inventory.items : (packet.a == -3 ? player.inventory.armor : player.inventory.craft);
         //System.out.println("invslot: " + packet.a + ", Size of incoming inv is " + packet.items.length + ", while " + stackarray.length + " is expected");
         if (packet.items.length < stackarray.length) {
             // invalid packet
+            return;
+        }
+
+        // craft slots are always empty for some reason
+        if (packet.a == -2) {
+            for (int i = 0; i < stackarray.length; i++) {
+                int clid = packet.items[i] != null ? packet.items[i].id : -1;
+                int cldmg = packet.items[i] != null ? packet.items[i].damage : -1;
+                int clcnt = packet.items[i] != null ? packet.items[i].count : -1;
+                
+                int srvid = stackarray[i] != null ? stackarray[i].id : -1;
+                int srvdmg = stackarray[i] != null ? stackarray[i].damage : -1;
+                int srvcnt = stackarray[i] != null ? stackarray[i].count : -1;
+                System.out.println("Index: " + i);
+                System.out.println("cl.id = " + clid + ", srv.id: " + srvid);
+                System.out.println("cl.dmg = " + cldmg + ", srv.dmg: " + srvdmg);
+                System.out.println("cl.cnt = " + clcnt + ", srv.cnt: " + srvcnt);
+            }
+            player.inventory.craft = packet.items;
             return;
         }
 
@@ -62,6 +81,7 @@ public class ProcessPacket5 {
 
                     // check if we can allow for addition
                     if (!unfinalized.hasInQueue(client)) {
+                        System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                         return;
                     }
                     System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
@@ -69,6 +89,7 @@ public class ProcessPacket5 {
                     int change = client.count - serverside.count;
                     if (change > 0) {
                         if (!unfinalized.hasInQueue(client)) {
+                            System.out.println("Tried to add at " + i + " index - id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
                             return;
                         }
                         System.out.println("Adding id: " + client.id + ", dmg: " + client.damage + ", cnt: " + client.count);
@@ -88,6 +109,7 @@ public class ProcessPacket5 {
                         System.out.println("cl.id = " + client.id + ", srv.id: " + serverside.id);
                         System.out.println("cl.dmg = " + client.damage + ", srv.dmg: " + serverside.damage);
                         System.out.println("cl.cnt = " + client.count + ", srv.cnt: " + serverside.count);
+                        // won't get accepted by the server
                         return;
                     }
                 }
