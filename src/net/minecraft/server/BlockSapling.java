@@ -45,10 +45,23 @@ public class BlockSapling extends BlockFlower {
         BlockChangeWithNotify delegate = new BlockChangeWithNotify(world);
 
         // uberbukkit
-        if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_spruces", true) && l == 1) {
+        
+	// Testing growing random tree types with Random call
+	int treeType = random.nextInt(3);
+
+	// 0 - Spruce
+	// 1 - Birch
+	// 2 - Oak
+
+	// If Spruce:
+	if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_spruces", true) && treeType == 0) {
             grownTree = new WorldGenTaiga2().generate(delegate, random, i, j, k);
-        } else if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_birches", true) && l == 2) {
+
+	// If Birch:
+        } else if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_birches", true) && treeType == 1) {
             grownTree = new WorldGenForest().generate(delegate, random, i, j, k);
+
+	// Otherwise grow a regular tree:
         } else {
             if (random.nextInt(10) == 0) {
                 grownTree = new WorldGenBigTree().generate(delegate, random, i, j, k);
@@ -56,6 +69,7 @@ public class BlockSapling extends BlockFlower {
                 grownTree = new WorldGenTrees().generate(delegate, random, i, j, k);
             }
         }
+	
 
         if (!grownTree) {
             world.setRawTypeIdAndData(i, j, k, this.id, l);
