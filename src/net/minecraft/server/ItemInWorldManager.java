@@ -52,7 +52,7 @@ public class ItemInWorldManager {
                 ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
             }
         } else {
-            if (i1 > 0 && Block.byId[i1].getDamage(this.player) == 0.0F) {
+            if (i1 > 0 && this.damageDealt == 0.0F) {
                 Block.byId[i1].b(this.world, i, j, k, this.player);
             }
             // Allow fire punching to be blocked
