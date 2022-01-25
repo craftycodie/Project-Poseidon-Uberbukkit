@@ -646,7 +646,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                             }
                             server.getPluginManager().callEvent(breakEvent);
                             if (!breakEvent.isCancelled()) {
-                                this.player.itemInWorldManager.oldDig(i, j, k);
+                                this.player.itemInWorldManager.oldClick(i, j, k, packet14blockdig.face);
                             }
                         }
                     }

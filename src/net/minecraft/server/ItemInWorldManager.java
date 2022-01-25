@@ -35,14 +35,30 @@ public class ItemInWorldManager {
 
     // ======= UBERBUKKIT PRE-b1.3 AREA =======
 
-    public void oldDig(int i, int j, int k) {
-        int l = this.world.getTypeId(i, j, k);
+    public void oldClick(int i, int j, int k, int l) { // UberBukkit add block face
+        int i1 = this.world.getTypeId(i, j, k);
+        
+        // CraftBukkit start
+        PlayerInteractEvent event = CraftEventFactory.callPlayerInteractEvent(this.player, Action.LEFT_CLICK_BLOCK, i, j, k, l, this.player.inventory.getItemInHand());
 
-        if (l > 0 && this.damageDealt == 0.0F) {
-            Block.byId[l].b(this.world, i, j, k, this.player);
+        if (event.useInteractedBlock() == Event.Result.DENY) {
+            // If we denied a door from opening, we need to send a correcting update to the client, as it already opened the door.
+            if (i1 == Block.WOODEN_DOOR.id) {
+                // For some reason *BOTH* the bottom/top part have to be marked updated.
+                boolean bottom = (this.world.getData(i, j, k) & 8) == 0;
+                ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+                ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j + (bottom ? 1 : -1), k, this.world));
+            } else if (i1 == Block.TRAP_DOOR.id) {
+                ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+            }
+        } else {
+            Block.byId[i1].b(this.world, i, j, k, this.player);
+            // Allow fire punching to be blocked
+            this.world.douseFire((EntityHuman) null, i, j, k, l);
         }
+        // CraftBukkit end
 
-        if (l > 0 && Block.byId[l].getDamage(this.player) >= 1.0F) {
+        if (i1 > 0 && Block.byId[i1].getDamage(this.player) >= 1.0F) {
             this.c(i, j, k);
         }
     }
