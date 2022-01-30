@@ -8,6 +8,7 @@ import java.util.Set;
 import org.bukkit.entity.Player;
 
 import pl.moresteck.uberbukkit.Uberbukkit;
+import pl.moresteck.uberbukkit.protocol.Protocol;
 
 public class EntityTrackerEntry {
 
@@ -128,9 +129,8 @@ public class EntityTrackerEntry {
                 this.a((Packet) packet);
             }
 
-            // uberbukkit
-            if (Uberbukkit.getProtocolHandler().canReceivePacket(40)) {
-                DataWatcher datawatcher = this.tracker.aa();
+                // uberbukkit
+            if (this.tracker instanceof EntityPlayer && Protocol.getProtocolClass(((EntityPlayer)this.tracker).netServerHandler.playerPVN).canReceivePacket(40)) {                DataWatcher datawatcher = this.tracker.aa();
 
                 if (datawatcher.a()) {
                     this.b((Packet) (new Packet40EntityMetadata(this.tracker.id, datawatcher)));
@@ -247,8 +247,9 @@ public class EntityTrackerEntry {
                     this.trackedPlayers.add(entityplayer);
                     entityplayer.netServerHandler.sendPacket(this.b());
 
+                    Protocol protocol = Protocol.getProtocolClass(entityplayer.netServerHandler.playerPVN);
                     // uberbukkit
-                    if (!Uberbukkit.getProtocolHandler().canReceivePacket(40)) {
+                    if (!protocol.canReceivePacket(40)) {
                         if (this.d_) {
                             entityplayer.netServerHandler.sendPacket((Packet) (new Packet18ArmAnimation(this.tracker, 104)));
                         }
@@ -278,7 +279,7 @@ public class EntityTrackerEntry {
                         EntityHuman entityhuman = (EntityHuman) this.tracker;
 
                         // uberbukkit
-                        if (entityhuman.isSleeping() && Uberbukkit.getProtocolHandler().canReceivePacket(17)) {
+                        if (entityhuman.isSleeping() && protocol.canReceivePacket(17)) {
                             entityplayer.netServerHandler.sendPacket(new Packet17(this.tracker, 0, MathHelper.floor(this.tracker.locX), MathHelper.floor(this.tracker.locY), MathHelper.floor(this.tracker.locZ)));
                         }
                     }

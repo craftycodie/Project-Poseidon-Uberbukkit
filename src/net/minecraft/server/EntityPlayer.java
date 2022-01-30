@@ -356,7 +356,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
             EntityTracker entitytracker = this.b.getTracker(this.dimension);
             Packet17 packet17 = new Packet17(this, 0, i, j, k);
             // uberbukkit
-            boolean send = Uberbukkit.getProtocolHandler().canReceivePacket(17);
+            Protocol protocol = Protocol.getProtocolClass(netServerHandler.playerPVN);
+            boolean send = protocol.canReceivePacket(17);
 
             if (send) entitytracker.a(this, packet17);
             this.netServerHandler.a(this.locX, this.locY, this.locZ, this.yaw, this.pitch);
@@ -504,7 +505,8 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     public void a(Statistic statistic, int i) {
         if (statistic != null) {
             // uberbukkit
-            if (Uberbukkit.getProtocolHandler().canReceivePacket(200)) {
+            Protocol protocol = Protocol.getProtocolClass(netServerHandler.playerPVN);
+            if (protocol.canReceivePacket(200)) {
                 if (!statistic.g) {
                     while (i > 100) {
                         this.netServerHandler.sendPacket(new Packet200Statistic(statistic.e, 100));

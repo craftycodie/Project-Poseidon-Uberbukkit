@@ -183,11 +183,6 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
     }
 
     public void playEffect(Location loc, Effect effect, int data) {
-    	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceivePacket(61)) {
-    		return;
-    	}
-
         int packetData = effect.getId();
         Packet61 packet = new Packet61(packetData, loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(), data);
         getHandle().netServerHandler.sendPacket(packet);
@@ -341,10 +336,6 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
 
     private void sendStatistic(int id, int amount) {
     	// uberbukkit
-    	if (!Uberbukkit.getProtocolHandler().canReceivePacket(200)) {
-    		return;
-    	}
-
         while (amount > Byte.MAX_VALUE) {
             sendStatistic(id, Byte.MAX_VALUE);
             amount -= Byte.MAX_VALUE;

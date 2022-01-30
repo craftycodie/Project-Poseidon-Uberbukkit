@@ -11,6 +11,7 @@ import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.command.ColouredConsoleSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.*;
+import pl.moresteck.uberbukkit.protocol.Protocol;
 
 import java.io.*;
 import java.util.*;
@@ -241,7 +242,9 @@ public class ServerConfigurationManager {
                     location = new Location(cworld, chunkcoordinates1.x + 0.5, chunkcoordinates1.y, chunkcoordinates1.z + 0.5);
                 } else {
                     // uberbukkit
-                    if (Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
+                    Protocol protocol = Protocol.getProtocolClass(entityplayer.netServerHandler.playerPVN);
+
+                    if (protocol.canReceivePacket(70)) {
                         entityplayer1.netServerHandler.sendPacket(new Packet70Bed(0));
                     }
                 }
@@ -597,6 +600,26 @@ public class ServerConfigurationManager {
         }
     }
 
+    public void sendPacketNearbyWherePVN(EntityHuman entityhuman, double d0, double d1, double d2, double d3, int i, Packet packet, PVNComparator pvnCondition) {
+        for (int j = 0; j < this.players.size(); ++j) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
+
+            if(!pvnCondition.isPVNValid(entityplayer.netServerHandler.playerPVN)) {
+                continue;
+            }
+
+            if (entityplayer != entityhuman && entityplayer.dimension == i) {
+                double d4 = d0 - entityplayer.locX;
+                double d5 = d1 - entityplayer.locY;
+                double d6 = d2 - entityplayer.locZ;
+
+                if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
+                    entityplayer.netServerHandler.sendPacket(packet);
+                }
+            }
+        }
+    }
+
     interface PVNComparator {
         boolean isPVNValid(int pvn);
     }
@@ -674,7 +697,8 @@ public class ServerConfigurationManager {
     public void a(EntityPlayer entityplayer, WorldServer worldserver) {
         entityplayer.netServerHandler.sendPacket(new Packet4UpdateTime(worldserver.getTime()));
         // uberbukkit
-        if (worldserver.v() && Uberbukkit.getProtocolHandler().canReceivePacket(70)) {
+        Protocol protocol = Protocol.getProtocolClass(entityplayer.netServerHandler.playerPVN);
+        if (worldserver.v() && protocol.canReceivePacket(70)) {
             entityplayer.netServerHandler.sendPacket(new Packet70Bed(1));
         }
     }
