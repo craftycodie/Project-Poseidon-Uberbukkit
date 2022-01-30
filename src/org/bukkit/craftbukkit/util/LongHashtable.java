@@ -35,7 +35,7 @@ public class LongHashtable<V> extends LongHash {
 
                 if (PoseidonConfig.getInstance().getBoolean("version.experimental.force_fix_chunk_coords_corruption", false)) {
                     c.x = msw;
-                    c.z = msw;
+                    c.z = lsw;
                 } else {
                     Throwable x = new Throwable();
                     x.fillInStackTrace();
