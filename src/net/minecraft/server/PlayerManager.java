@@ -14,7 +14,9 @@ public class PlayerManager {
     private final int[][] g = new int[][] { { 1, 0}, { 0, 1}, { -1, 0}, { 0, -1}};
 
     public PlayerManager(MinecraftServer minecraftserver, int i, int j) {
-        if (j < 3) {
+        if (j > 32) {
+            throw new IllegalArgumentException("Too big view radius!");
+        } else if (j < 3) {
             throw new IllegalArgumentException("Too small view radius!");
         } else {
             this.f = j;
