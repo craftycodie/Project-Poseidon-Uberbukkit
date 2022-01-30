@@ -3,6 +3,7 @@ package net.minecraft.server;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
+import pl.moresteck.uberbukkit.Uberbukkit;
 
 import java.util.List;
 
@@ -96,11 +97,13 @@ public class EntityWeatherStorm extends EntityWeather {
 
                     if (this.world.getTypeId(i, j, k) == 0 && Block.FIRE.canPlace(this.world, i, j, k)) {
                         // CraftBukkit start
-                        BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(i, j, k), IgniteCause.LIGHTNING, null);
-                        this.world.getServer().getPluginManager().callEvent(event);
+                        if (Uberbukkit.getPVN() >= 11) {
+                            BlockIgniteEvent event = new BlockIgniteEvent(this.cworld.getBlockAt(i, j, k), IgniteCause.LIGHTNING, null);
+                            this.world.getServer().getPluginManager().callEvent(event);
 
-                        if (!event.isCancelled()) {
-                            this.world.setTypeId(i, j, k, Block.FIRE.id);
+                            if (!event.isCancelled()) {
+                                this.world.setTypeId(i, j, k, Block.FIRE.id);
+                            }
                         }
                         // CraftBukkit end
                     }

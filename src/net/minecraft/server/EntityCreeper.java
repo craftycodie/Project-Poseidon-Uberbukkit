@@ -5,6 +5,7 @@ package net.minecraft.server;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.event.entity.CreeperPowerEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
+import pl.moresteck.uberbukkit.Uberbukkit;
 // CraftBukkit end
 
 public class EntityCreeper extends EntityMonster {
@@ -148,15 +149,17 @@ public class EntityCreeper extends EntityMonster {
     public void a(EntityWeatherStorm entityweatherstorm) {
         super.a(entityweatherstorm);
 
-        // CraftBukkit start
-        CreeperPowerEvent event = new CreeperPowerEvent(this.getBukkitEntity(), entityweatherstorm.getBukkitEntity(), CreeperPowerEvent.PowerCause.LIGHTNING);
-        this.world.getServer().getPluginManager().callEvent(event);
+        if (Uberbukkit.getPVN() >= 11) {
+            // CraftBukkit start
+            CreeperPowerEvent event = new CreeperPowerEvent(this.getBukkitEntity(), entityweatherstorm.getBukkitEntity(), CreeperPowerEvent.PowerCause.LIGHTNING);
+            this.world.getServer().getPluginManager().callEvent(event);
 
-        if (event.isCancelled()) {
-            return;
+            if (event.isCancelled()) {
+                return;
+            }
+
+            this.setPowered(true);
         }
-
-        this.setPowered(true);
     }
 
     public void setPowered(boolean powered) {
