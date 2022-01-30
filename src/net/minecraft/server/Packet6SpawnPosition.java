@@ -18,13 +18,13 @@ public class Packet6SpawnPosition extends Packet {
         this.z = k;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.x = datainputstream.readInt();
         this.y = datainputstream.readInt();
         this.z = datainputstream.readInt();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.x);
         dataoutputstream.writeInt(this.y);
         dataoutputstream.writeInt(this.z);
@@ -34,7 +34,7 @@ public class Packet6SpawnPosition extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 12;
     }
 }

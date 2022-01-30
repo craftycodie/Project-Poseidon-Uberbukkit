@@ -3,8 +3,6 @@ package net.minecraft.server;
 import com.legacyminecraft.poseidon.PoseidonConfig;
 import com.legacyminecraft.poseidon.event.PlayerReceivePacketEvent;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 import org.bukkit.Bukkit;
 
 import java.io.BufferedOutputStream;
@@ -65,7 +63,7 @@ public class NetworkManager {
             }
 
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 11) {
+            if (nethandler.getPlayerPVN() >= 11) {
                 this.input = new DataInputStream(socket.getInputStream());
                 this.output = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream(), 5120));
             } else {
@@ -107,7 +105,7 @@ public class NetworkManager {
             Object object = this.g;
 
             synchronized (this.g) {
-                this.x += packet.a() + 1;
+                this.x += packet.getSize(this.p.getPlayerPVN()) + 1;
                 if (packet.k) {
                     this.lowPriorityQueue.add(packet);
                 } else {
@@ -130,13 +128,13 @@ public class NetworkManager {
                 object = this.g;
                 synchronized (this.g) {
                     packet = (Packet) this.highPriorityQueue.remove(0);
-                    this.x -= packet.a() + 1;
+                    this.x -= packet.getSize(this.p.getPlayerPVN()) + 1;
                 }
 
-                Packet.a(packet, this.output);
+                Packet.a(packet, this.output, this.p.getPlayerPVN());
                 aint = e;
                 i = packet.b();
-                aint[i] += packet.a() + 1;
+                aint[i] += packet.getSize(this.p.getPlayerPVN()) + 1;
                 flag = true;
             }
 
@@ -145,13 +143,13 @@ public class NetworkManager {
                 object = this.g;
                 synchronized (this.g) {
                     packet = (Packet) this.lowPriorityQueue.remove(0);
-                    this.x -= packet.a() + 1;
+                    this.x -= packet.getSize(this.p.getPlayerPVN()) + 1;
                 }
 
-                Packet.a(packet, this.output);
+                Packet.a(packet, this.output, this.p.getPlayerPVN());
                 aint = e;
                 i = packet.b();
-                aint[i] += packet.a() + 1;
+                aint[i] += packet.getSize(this.p.getPlayerPVN()) + 1;
                 this.lowPriorityQueueDelay = 0;
                 flag = true;
             }
@@ -175,13 +173,13 @@ public class NetworkManager {
         boolean flag = false;
 
         try {
-            Packet packet = Packet.a(this.input, this.p.c());
+            Packet packet = Packet.a(this.input, this.p.c(), p.getPlayerPVN());
 
             if (packet != null) {
                 int[] aint = d;
                 int i = packet.b();
 
-                aint[i] += packet.a() + 1;
+                aint[i] += packet.getSize(p.getPlayerPVN()) + 1;
                 this.m.add(packet);
                 flag = true;
             } else {

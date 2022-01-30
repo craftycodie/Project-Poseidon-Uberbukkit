@@ -20,8 +20,8 @@ public class Packet16BlockItemSwitch extends Packet {
         this.itemDamage = j;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
-        if (Uberbukkit.getPVN() >= 7) {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
+        if (playerPVN >= 7) {
             this.itemInHandIndex = datainputstream.readShort();
         } else {
             this.itemDamage = datainputstream.readInt();
@@ -29,8 +29,8 @@ public class Packet16BlockItemSwitch extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
-        if (Uberbukkit.getPVN() >= 7) {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
+        if (playerPVN >= 7) {
             dataoutputstream.writeShort(this.itemInHandIndex);
         } else {
             dataoutputstream.writeInt(this.itemDamage);
@@ -42,7 +42,7 @@ public class Packet16BlockItemSwitch extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
-        return Uberbukkit.getPVN() >= 7 ? 2 : 6;
+    public int getSize(int playerPVN) {
+        return playerPVN >= 7 ? 2 : 6;
     }
 }

@@ -84,7 +84,7 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static Packet a(DataInputStream datainputstream, boolean flag) throws IOException {
+    public static Packet a(DataInputStream datainputstream, boolean flag, int playerPVN) throws IOException {
         boolean flag1 = false;
         Packet packet = null;
 
@@ -107,7 +107,7 @@ public abstract class Packet {
                 throw new IOException("Bad packet id " + i);
             }
 
-            packet.a(datainputstream);
+            packet.readPacket(datainputstream, playerPVN);
         } catch (EOFException eofexception) {
             System.out.println("Reached end of stream");
             return null;
@@ -132,7 +132,7 @@ public abstract class Packet {
             e.put(Integer.valueOf(i), packetcounter);
         }
 
-        packetcounter.a(packet.a());
+        packetcounter.a(packet.getSize(playerPVN));
         ++f;
         if (f % 1000 == 0) {
             ;
@@ -142,9 +142,9 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static void a(Packet packet, DataOutputStream dataoutputstream) throws IOException {
+    public static void a(Packet packet, DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.write(packet.b());
-        packet.a(dataoutputstream);
+        packet.writePacket(dataoutputstream, playerPVN);
     }
 
     // CraftBukkit - throws IOException
@@ -158,17 +158,17 @@ public abstract class Packet {
     }
 
     // CraftBukkit - throws IOException
-    public static String a(DataInputStream datainputstream, int i)  throws IOException {
-        short short1 = datainputstream.readShort();
+    public static String readString(DataInputStream datainputstream, int maxLength)  throws IOException {
+        short stringLength = datainputstream.readShort();
 
-        if (short1 > i) {
-            throw new IOException("Received string length longer than maximum allowed (" + short1 + " > " + i + ")");
-        } else if (short1 < 0) {
+        if (stringLength > maxLength) {
+            throw new IOException("Received string length longer than maximum allowed (" + stringLength + " > " + maxLength + ")");
+        } else if (stringLength < 0) {
             throw new IOException("Received string length is less than zero! Weird string!");
         } else {
             StringBuilder stringbuilder = new StringBuilder();
 
-            for (int j = 0; j < short1; ++j) {
+            for (int j = 0; j < stringLength; ++j) {
                 stringbuilder.append(datainputstream.readChar());
             }
 
@@ -176,13 +176,13 @@ public abstract class Packet {
         }
     }
 
-    public abstract void a(DataInputStream datainputstream) throws IOException; // CraftBukkit
+    public abstract void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException; // CraftBukkit
 
-    public abstract void a(DataOutputStream dataoutputstream) throws IOException; // CraftBukkit
+    public abstract void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException; // CraftBukkit
 
     public abstract void a(NetHandler nethandler);
 
-    public abstract int a();
+    public abstract int getSize(int playerPVN);
 
     static {
         a(0, true, true, Packet0KeepAlive.class);

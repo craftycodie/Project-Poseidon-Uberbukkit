@@ -21,13 +21,13 @@ public class Packet50PreChunk extends Packet {
         this.c = flag;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.b = datainputstream.readInt();
         this.c = datainputstream.read() != 0;
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeInt(this.b);
         dataoutputstream.write(this.c ? 1 : 0);
@@ -37,7 +37,7 @@ public class Packet50PreChunk extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 9;
     }
 }

@@ -15,21 +15,21 @@ public class Packet31RelEntityMove extends Packet30Entity {
         this.d = b2;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
-        super.a(datainputstream);
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
+        super.readPacket(datainputstream, playerPVN);
         this.b = datainputstream.readByte();
         this.c = datainputstream.readByte();
         this.d = datainputstream.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
-        super.a(dataoutputstream);
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
+        super.writePacket(dataoutputstream, playerPVN);
         dataoutputstream.writeByte(this.b);
         dataoutputstream.writeByte(this.c);
         dataoutputstream.writeByte(this.d);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 7;
     }
 }

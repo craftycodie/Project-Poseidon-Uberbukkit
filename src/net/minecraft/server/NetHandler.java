@@ -1,5 +1,7 @@
 package net.minecraft.server;
 
+import pl.moresteck.uberbukkit.Uberbukkit;
+
 public abstract class NetHandler {
 
     public NetHandler() {}
@@ -211,4 +213,6 @@ public abstract class NetHandler {
     public void a(Packet61 packet61) {
         this.a((Packet) packet61);
     }
+
+    public int getPlayerPVN() { return Uberbukkit.getPVN(); }
 }

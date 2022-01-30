@@ -127,8 +127,13 @@ public class WorldServer extends World implements BlockChangeDelegate {
         }
 
         // uberbukkit
-        if (super.strikeLightning(entity) && Uberbukkit.getProtocolHandler().canReceivePacket(71)) {
-            this.server.serverConfigurationManager.sendPacketNearby(entity.locX, entity.locY, entity.locZ, 512.0D, this.dimension, new Packet71Weather(entity));
+        if (super.strikeLightning(entity)) {
+            this.server.serverConfigurationManager.sendPacketNearbyWherePVN(entity.locX, entity.locY, entity.locZ, 512.0D, this.dimension, new Packet71Weather(entity), new ServerConfigurationManager.PVNComparator() {
+                @Override
+                public boolean isPVNValid(int pvn) {
+                    return pvn >= 11;
+                }
+            });
             // CraftBukkit end
             return true;
         } else {

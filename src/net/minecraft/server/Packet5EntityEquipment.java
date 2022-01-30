@@ -39,13 +39,13 @@ public class Packet5EntityEquipment extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
-        if (Uberbukkit.getPVN() >= 7) {
+        if (playerPVN >= 7) {
             this.b = datainputstream.readShort();
             this.c = datainputstream.readShort();
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (playerPVN >= 8) {
                 this.d = datainputstream.readShort();
             } else {
                 this.d = 0;
@@ -68,13 +68,13 @@ public class Packet5EntityEquipment extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
-        if (Uberbukkit.getPVN() >= 7) {
+        if (playerPVN >= 7) {
             dataoutputstream.writeShort(this.b);
             dataoutputstream.writeShort(this.c);
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (playerPVN >= 8) {
                 dataoutputstream.writeShort(this.d);
             }
         } else {
@@ -96,7 +96,7 @@ public class Packet5EntityEquipment extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
-        return Uberbukkit.getPVN() >= 7 ? 8 : (6 + this.items.length * 5);
+    public int getSize(int playerPVN) {
+        return playerPVN >= 7 ? 8 : (6 + this.items.length * 5);
     }
 }

@@ -17,15 +17,15 @@ public class Packet15Place extends Packet {
 
     public Packet15Place() {}
 
-    public void a(DataInputStream datainputstream) throws IOException {
-        if (Uberbukkit.getPVN() <= 6) {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
+        if (playerPVN <= 6) {
             this.data = datainputstream.readShort();
             this.a = datainputstream.readInt();
             this.b = datainputstream.read();
             this.c = datainputstream.readInt();
             this.face = datainputstream.read();
 
-        } else if (Uberbukkit.getPVN() >= 7) {
+        } else if (playerPVN >= 7) {
             this.a = datainputstream.readInt();
             this.b = datainputstream.read();
             this.c = datainputstream.readInt();
@@ -37,7 +37,7 @@ public class Packet15Place extends Packet {
                 byte b0 = datainputstream.readByte();
                 short short2 = 0;
                 // uberbukkit
-                if (Uberbukkit.getPVN() >= 8) {
+                if (playerPVN >= 8) {
                     short2 = datainputstream.readShort();
                 } else {
                     short2 = datainputstream.readByte();
@@ -50,15 +50,15 @@ public class Packet15Place extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
-        if (Uberbukkit.getPVN() <= 6) {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
+        if (playerPVN <= 6) {
             dataoutputstream.writeShort(this.data);
             dataoutputstream.writeInt(this.a);
             dataoutputstream.write(this.b);
             dataoutputstream.writeInt(this.c);
             dataoutputstream.write(this.face);
 
-        } else if (Uberbukkit.getPVN() >= 7) {
+        } else if (playerPVN >= 7) {
             dataoutputstream.writeInt(this.a);
             dataoutputstream.write(this.b);
             dataoutputstream.writeInt(this.c);
@@ -70,7 +70,7 @@ public class Packet15Place extends Packet {
                 dataoutputstream.writeShort(this.itemstack.id);
                 dataoutputstream.writeByte(this.itemstack.count);
                 // uberbukkit
-                if (Uberbukkit.getPVN() >= 8) {
+                if (playerPVN >= 8) {
                     dataoutputstream.writeShort(this.itemstack.getData());
                 } else {
                     dataoutputstream.writeByte(this.itemstack.getData());
@@ -83,8 +83,8 @@ public class Packet15Place extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 15 : 14;
+        return playerPVN >= 8 ? 15 : 14;
     }
 }

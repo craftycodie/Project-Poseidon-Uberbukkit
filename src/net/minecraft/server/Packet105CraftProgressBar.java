@@ -22,19 +22,19 @@ public class Packet105CraftProgressBar extends Packet {
         nethandler.a(this);
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readByte();
         this.b = datainputstream.readShort();
         this.c = datainputstream.readShort();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeShort(this.c);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 5;
     }
 }

@@ -24,7 +24,7 @@ public class Packet71Weather extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.e = datainputstream.readByte();
         this.b = datainputstream.readInt();
@@ -32,7 +32,7 @@ public class Packet71Weather extends Packet {
         this.d = datainputstream.readInt();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeByte(this.e);
         dataoutputstream.writeInt(this.b);
@@ -44,7 +44,7 @@ public class Packet71Weather extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 17;
     }
 }

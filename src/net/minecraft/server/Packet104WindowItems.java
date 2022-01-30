@@ -23,7 +23,7 @@ public class Packet104WindowItems extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readByte();
         short short1 = datainputstream.readShort();
 
@@ -41,7 +41,7 @@ public class Packet104WindowItems extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b.length);
 
@@ -60,7 +60,7 @@ public class Packet104WindowItems extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 3 + this.b.length * 5;
     }
 }

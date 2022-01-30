@@ -50,14 +50,14 @@ public class Packet28EntityVelocity extends Packet {
         this.d = (int) (d2 * 8000.0D);
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.b = datainputstream.readShort();
         this.c = datainputstream.readShort();
         this.d = datainputstream.readShort();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeShort(this.c);
@@ -68,7 +68,7 @@ public class Packet28EntityVelocity extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 10;
     }
 }

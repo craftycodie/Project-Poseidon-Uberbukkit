@@ -38,7 +38,7 @@ public class ArtificialPacket53BlockChange extends Packet {
         this.data = data;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.b = datainputstream.read();
         this.c = datainputstream.readInt();
@@ -46,7 +46,7 @@ public class ArtificialPacket53BlockChange extends Packet {
         this.data = datainputstream.read();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.write(this.b);
         dataoutputstream.writeInt(this.c);
@@ -58,7 +58,7 @@ public class ArtificialPacket53BlockChange extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 11;
     }
 }

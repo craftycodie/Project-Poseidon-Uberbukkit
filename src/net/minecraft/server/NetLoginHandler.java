@@ -33,7 +33,12 @@ public class NetLoginHandler extends NetHandler {
     private boolean receivedLoginPacket = false;
     private int rawConnectionType;
     private boolean receivedKeepAlive = false;
-    public int pvn; // uberbukkit
+    public int pvn = Uberbukkit.getPVN(); // uberbukkit
+
+    @Override
+    public int getPlayerPVN() {
+        return pvn;
+    }
 
     public NetLoginHandler(MinecraftServer minecraftserver, Socket socket, String s) {
         this.server = minecraftserver;
@@ -74,9 +79,9 @@ public class NetLoginHandler extends NetHandler {
     public void a(Packet2Handshake packet2handshake) {
         if (this.server.onlineMode) {
             this.serverId = Long.toHexString(d.nextLong());
-            this.networkManager.queue(new Packet2Handshake(this.serverId));
+            this.networkManager.queue(new Packet2Handshake(this.serverId, packet2handshake.notchianString));
         } else {
-            this.networkManager.queue(new Packet2Handshake("-"));
+            this.networkManager.queue(new Packet2Handshake("-", packet2handshake.notchianString));
         }
     }
 
@@ -160,7 +165,7 @@ public class NetLoginHandler extends NetHandler {
             a.info(this.b() + " logged in with entity id " + entityplayer.id + " at ([" + entityplayer.world.worldData.name + "] " + entityplayer.locX + ", " + entityplayer.locY + ", " + entityplayer.locZ + ")");
             WorldServer worldserver = (WorldServer) entityplayer.world; // CraftBukkit
             ChunkCoordinates chunkcoordinates = worldserver.getSpawn();
-            NetServerHandler netserverhandler = new NetServerHandler(this.server, this.networkManager, entityplayer);
+            NetServerHandler netserverhandler = new NetServerHandler(this.server, this.networkManager, entityplayer, packet1login.a);
             //Poseidon Start
             netserverhandler.setUsingReleaseToBeta(usingReleaseToBeta);
             netserverhandler.setConnectionType(connectionType);

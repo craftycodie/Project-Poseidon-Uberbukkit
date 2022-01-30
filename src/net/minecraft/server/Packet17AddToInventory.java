@@ -18,13 +18,13 @@ public class Packet17AddToInventory extends Packet {
         this.c = itemstack.damage;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readShort();
         this.b = datainputstream.readByte();
         this.c = datainputstream.readShort();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeShort(this.a);
         dataoutputstream.writeByte(this.b);
         dataoutputstream.writeShort(this.c);
@@ -34,7 +34,7 @@ public class Packet17AddToInventory extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 5;
     }
 }

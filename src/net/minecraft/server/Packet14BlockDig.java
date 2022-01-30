@@ -14,7 +14,7 @@ public class Packet14BlockDig extends Packet {
 
     public Packet14BlockDig() {}
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.e = datainputstream.read();
         this.a = datainputstream.readInt();
         this.b = datainputstream.read();
@@ -22,7 +22,7 @@ public class Packet14BlockDig extends Packet {
         this.face = datainputstream.read();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.write(this.e);
         dataoutputstream.writeInt(this.a);
         dataoutputstream.write(this.b);
@@ -34,7 +34,7 @@ public class Packet14BlockDig extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 11;
     }
 }

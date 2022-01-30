@@ -12,13 +12,13 @@ public class Packet0KeepAlive extends Packet {
         nethandler.a(this);
     }
 
-    public void a(DataInputStream datainputstream) {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) {
     }
 
-    public void a(DataOutputStream dataoutputstream) {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) {
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 0;
     }
 }

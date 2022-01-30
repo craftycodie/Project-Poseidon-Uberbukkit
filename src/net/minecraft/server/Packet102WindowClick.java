@@ -22,13 +22,13 @@ public class Packet102WindowClick extends Packet {
         nethandler.a(this);
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readByte();
         this.b = datainputstream.readShort();
         this.c = datainputstream.readByte();
         this.d = datainputstream.readShort();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (playerPVN >= 11) {
             this.f = datainputstream.readBoolean();
         } else {
             this.f = false;
@@ -40,7 +40,7 @@ public class Packet102WindowClick extends Packet {
             byte b0 = datainputstream.readByte();
             short short2 = 0;
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (playerPVN >= 8) {
                 short2 = datainputstream.readShort();
             } else {
                 short2 = datainputstream.readByte();
@@ -52,13 +52,13 @@ public class Packet102WindowClick extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeByte(this.c);
         dataoutputstream.writeShort(this.d);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (playerPVN >= 11) {
             dataoutputstream.writeBoolean(this.f);
         }
 
@@ -68,7 +68,7 @@ public class Packet102WindowClick extends Packet {
             dataoutputstream.writeShort(this.e.id);
             dataoutputstream.writeByte(this.e.count);
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (playerPVN >= 8) {
                 dataoutputstream.writeShort(this.e.getData());
             } else {
                 dataoutputstream.writeByte(this.e.getData());
@@ -76,8 +76,8 @@ public class Packet102WindowClick extends Packet {
         }
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 11 : 10;
+        return playerPVN >= 8 ? 11 : 10;
     }
 }

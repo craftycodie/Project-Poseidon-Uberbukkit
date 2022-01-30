@@ -25,7 +25,7 @@ public class Packet60Explosion extends Packet {
         this.e = new HashSet(set);
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readDouble();
         this.b = datainputstream.readDouble();
         this.c = datainputstream.readDouble();
@@ -46,7 +46,7 @@ public class Packet60Explosion extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeDouble(this.a);
         dataoutputstream.writeDouble(this.b);
         dataoutputstream.writeDouble(this.c);
@@ -73,7 +73,7 @@ public class Packet60Explosion extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 32 + this.e.size() * 3;
     }
 }

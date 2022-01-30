@@ -22,15 +22,15 @@ public class Packet10Flying extends Packet {
         nethandler.a(this);
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.g = datainputstream.read() != 0;
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.write(this.g ? 1 : 0);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 1;
     }
 }

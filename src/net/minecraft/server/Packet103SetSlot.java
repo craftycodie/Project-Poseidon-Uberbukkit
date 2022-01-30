@@ -24,7 +24,7 @@ public class Packet103SetSlot extends Packet {
         nethandler.a(this);
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readByte();
         this.b = datainputstream.readShort();
         short short1 = datainputstream.readShort();
@@ -33,7 +33,7 @@ public class Packet103SetSlot extends Packet {
             byte b0 = datainputstream.readByte();
             short short2 = 0;
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (playerPVN >= 8) {
                 short2 = datainputstream.readShort();
             } else {
                 short2 = datainputstream.readByte();
@@ -45,7 +45,7 @@ public class Packet103SetSlot extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b);
         if (this.c == null) {
@@ -54,7 +54,7 @@ public class Packet103SetSlot extends Packet {
             dataoutputstream.writeShort(this.c.id);
             dataoutputstream.writeByte(this.c.count);
             // uberbukkit
-            if (Uberbukkit.getPVN() >= 8) {
+            if (playerPVN >= 8) {
                 dataoutputstream.writeShort(this.c.getData());
             } else {
                 dataoutputstream.writeByte(this.c.getData());
@@ -62,8 +62,8 @@ public class Packet103SetSlot extends Packet {
         }
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 8 : 7;
+        return playerPVN >= 8 ? 8 : 7;
     }
 }

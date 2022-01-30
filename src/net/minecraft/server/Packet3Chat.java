@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet3Chat extends Packet {
 
     public String message;
@@ -22,18 +20,18 @@ public class Packet3Chat extends Packet {
         this.message = s;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException { // CraftBukkit
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException { // CraftBukkit
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
-            this.message = a(datainputstream, 119);
+        if (playerPVN >= 11) {
+            this.message = readString(datainputstream, 119);
         } else {
             this.message = datainputstream.readUTF();
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException { // CraftBukkit
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException { // CraftBukkit
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (playerPVN >= 11) {
             a(this.message, dataoutputstream);
         } else {
             dataoutputstream.writeUTF(this.message);
@@ -44,7 +42,7 @@ public class Packet3Chat extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return this.message.length();
     }
 }

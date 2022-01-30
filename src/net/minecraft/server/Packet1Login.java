@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import pl.moresteck.uberbukkit.Uberbukkit;
-
 public class Packet1Login extends Packet {
 
     public int a;
@@ -22,11 +20,11 @@ public class Packet1Login extends Packet {
         this.d = b0;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
-            this.name = a(datainputstream, 16);
+        if (a >= 11) {
+            this.name = readString(datainputstream, 16);
         } else {
             this.name = datainputstream.readUTF();
             datainputstream.readUTF();
@@ -36,10 +34,10 @@ public class Packet1Login extends Packet {
         this.d = datainputstream.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (playerPVN >= 11) {
             a(this.name, dataoutputstream);
         } else {
             dataoutputstream.writeUTF(this.name);
@@ -54,7 +52,7 @@ public class Packet1Login extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 4 + this.name.length() + 4 + 5;
     }
 }

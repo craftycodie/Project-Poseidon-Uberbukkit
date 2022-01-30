@@ -21,14 +21,14 @@ public class Packet131 extends Packet {
         this.c = abyte;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readShort();
         this.b = datainputstream.readShort();
         this.c = new byte[datainputstream.readByte() & 255];
         datainputstream.readFully(this.c);
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeShort(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeByte(this.c.length);
@@ -39,7 +39,7 @@ public class Packet131 extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 4 + this.c.length;
     }
 }

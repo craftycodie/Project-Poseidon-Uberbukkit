@@ -67,14 +67,14 @@ public class Packet23VehicleSpawn extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.h = datainputstream.readByte();
         this.b = datainputstream.readInt();
         this.c = datainputstream.readInt();
         this.d = datainputstream.readInt();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 13) {
+        if (playerPVN >= 13) {
             this.i = datainputstream.readInt();
             if (this.i > 0) {
                 this.e = datainputstream.readShort();
@@ -86,14 +86,14 @@ public class Packet23VehicleSpawn extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeByte(this.h);
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeInt(this.c);
         dataoutputstream.writeInt(this.d);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 13) {
+        if (playerPVN >= 13) {
             dataoutputstream.writeInt(this.i);
             if (this.i > 0) {
                 dataoutputstream.writeShort(this.e);
@@ -107,8 +107,8 @@ public class Packet23VehicleSpawn extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 13 ? (21 + this.i > 0 ? 6 : 0) : 17;
+        return playerPVN >= 13 ? (21 + this.i > 0 ? 6 : 0) : 17;
     }
 }

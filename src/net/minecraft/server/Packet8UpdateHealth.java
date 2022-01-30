@@ -16,16 +16,16 @@ public class Packet8UpdateHealth extends Packet {
         this.a = i;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
-        if (Uberbukkit.getPVN() >= 7) {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
+        if (playerPVN >= 7) {
             this.a = datainputstream.readShort();
         } else {
             this.a = datainputstream.readByte();
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
-        if (Uberbukkit.getPVN() >= 7) {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
+        if (playerPVN >= 7) {
             dataoutputstream.writeShort(this.a);
         } else {
             dataoutputstream.writeByte(this.a);
@@ -36,7 +36,7 @@ public class Packet8UpdateHealth extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
-        return Uberbukkit.getPVN() >= 7 ? 2 : 1;
+    public int getSize(int playerPVN) {
+        return playerPVN >= 7 ? 2 : 1;
     }
 }

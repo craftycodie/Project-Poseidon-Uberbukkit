@@ -67,6 +67,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private int rawConnectionType = 0; //Project Poseidon - Create Variable
     private boolean receivedKeepAlive = false;
     private boolean firePacketEvents;
+    public final int playerPVN;
+
+    @Override
+    public int getPlayerPVN() {
+        return playerPVN;
+    }
 
     public boolean isReceivedKeepAlive() {
         return receivedKeepAlive;
@@ -76,12 +82,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.receivedKeepAlive = receivedKeepAlive;
     }
 
-    public NetServerHandler(MinecraftServer minecraftserver, NetworkManager networkmanager, EntityPlayer entityplayer) {
+    public NetServerHandler(MinecraftServer minecraftserver, NetworkManager networkmanager, EntityPlayer entityplayer, int playerPVN) {
         this.minecraftServer = minecraftserver;
         this.networkManager = networkmanager;
         networkmanager.a((NetHandler) this);
         this.player = entityplayer;
         entityplayer.netServerHandler = this;
+        this.playerPVN = playerPVN;
 
         // CraftBukkit start
         this.server = minecraftserver.server;
@@ -185,7 +192,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
     // uberbukkit
     public void a(Packet5EntityEquipment packet5) {
-        if (Uberbukkit.getPVN() > 6) return;
+        if (playerPVN > 6) return;
 
         System.out.println("PACKET 5 received");
         this.player.packet5.process(packet5);
@@ -588,11 +595,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 flag1 = true;
             }
 
-            if (packet14blockdig.e == 1 && Uberbukkit.getPVN() <= 8) {
+            if (packet14blockdig.e == 1 && playerPVN <= 8) {
                 flag1 = true;
             }
 
-            if (packet14blockdig.e == 2 && Uberbukkit.getPVN() >= 9) {
+            if (packet14blockdig.e == 2 && playerPVN >= 9) {
                 flag1 = true;
             }
 
@@ -615,7 +622,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 i1 = l;
             }
 
-            if (Uberbukkit.getPVN() <= 8) {
+            if (playerPVN <= 8) {
                 // CraftBukkit start
                 CraftPlayer player = getPlayer();
                 CraftBlock block = (CraftBlock) player.getWorld().getBlockAt(i, j, k);
@@ -751,7 +758,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         if (this.player.dead) return;
 
         // uberbukkit: noptch what the fuck have you done
-        if (Uberbukkit.getPVN() == 7) {
+        if (playerPVN == 7) {
             if (packet15place.itemstack != null && packet15place.a != -1 && packet15place.b != 255 && packet15place.c != -1 && (packet15place.itemstack.id == Item.BUCKET.id || packet15place.itemstack.id == Item.WATER_BUCKET.id || packet15place.itemstack.id == Item.LAVA_BUCKET.id || packet15place.itemstack.id == Item.MILK_BUCKET.id)) {
                 return;
             }
@@ -868,7 +875,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         this.player.h = false;
         // CraftBukkit
         if (!ItemStack.equals(this.player.inventory.getItemInHand(), packet15place.itemstack) || always) {
-            if (Uberbukkit.getPVN() <= 6) {
+            if (playerPVN <= 6) {
                 this.refreshInventory();
             } else {
                 this.sendPacket(new Packet103SetSlot(this.player.activeContainer.windowId, slot.a, this.player.inventory.getItemInHand()));
@@ -920,13 +927,15 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         }
         //Poseidon End
 
+        Protocol protocol = Protocol.getProtocolClass(playerPVN);
 
         // uberbukkit
-        Protocol protocol = Uberbukkit.getProtocolHandler();
         if (!protocol.canReceivePacket(packet.b())) {
             this.g = this.f;
             return;
         }
+
+        protocol = Uberbukkit.getProtocolHandler();
 
         // try to disallow for incompatible blocks
         if (packet instanceof Packet5EntityEquipment) {
@@ -949,7 +958,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             String message = ((Packet3Chat) packet).message;
             // uberbukkit
             String[] wrapped = null;
-            if (Uberbukkit.getPVN() >= 9) { // TODO check compatibility
+            if (playerPVN >= 9) { // TODO check compatibility
                 wrapped = TextWrapper.wrapText(message);
             } else {
                 wrapped = TextWrapper.wrapTextLegacy(message);
@@ -979,7 +988,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
         if (this.player.dead) return; // CraftBukkit
 
-        if (Uberbukkit.getPVN() >= 7) {
+        if (playerPVN >= 7) {
             if (packet16blockitemswitch.itemInHandIndex >= 0 && packet16blockitemswitch.itemInHandIndex <= InventoryPlayer.e()) {
                 // CraftBukkit start
                 PlayerItemHeldEvent event = new PlayerItemHeldEvent(this.getPlayer(), this.player.inventory.itemInHandIndex, packet16blockitemswitch.itemInHandIndex);
@@ -1222,7 +1231,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             return;
 
         // uberbukkit - drop item queue on disconnect
-        if (Uberbukkit.getPVN() <= 6) {
+        if (playerPVN <= 6) {
             ArrayList<ItemStack> queue = this.player.packet5.queue.dropAllQueue();
             Player bukkitEntity = (Player) this.player.getBukkitEntity();
             for (ItemStack item : queue) {

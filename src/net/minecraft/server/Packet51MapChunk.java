@@ -51,7 +51,7 @@ public class Packet51MapChunk extends Packet {
         this.rawData = data; // CraftBukkit
     }
 
-    public void a(DataInputStream datainputstream) throws IOException { // CraftBukkit - throws IOEXception
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException { // CraftBukkit - throws IOEXception
         this.a = datainputstream.readInt();
         this.b = datainputstream.readShort();
         this.c = datainputstream.readInt();
@@ -76,7 +76,7 @@ public class Packet51MapChunk extends Packet {
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException { // CraftBukkit - throws IOException
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException { // CraftBukkit - throws IOException
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeInt(this.c);
@@ -91,7 +91,7 @@ public class Packet51MapChunk extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 17 + this.h;
     }
 }

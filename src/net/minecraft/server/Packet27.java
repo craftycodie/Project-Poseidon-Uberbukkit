@@ -15,7 +15,7 @@ public class Packet27 extends Packet {
 
     public Packet27() {}
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readFloat();
         this.b = datainputstream.readFloat();
         this.e = datainputstream.readFloat();
@@ -24,7 +24,7 @@ public class Packet27 extends Packet {
         this.d = datainputstream.readBoolean();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeFloat(this.a);
         dataoutputstream.writeFloat(this.b);
         dataoutputstream.writeFloat(this.e);
@@ -37,7 +37,7 @@ public class Packet27 extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 18;
     }
 

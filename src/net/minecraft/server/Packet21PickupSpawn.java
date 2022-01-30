@@ -34,12 +34,12 @@ public class Packet21PickupSpawn extends Packet {
         this.g = (byte) ((int) (entityitem.motZ * 128.0D));
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.h = datainputstream.readShort();
         this.i = datainputstream.readByte();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (playerPVN >= 8) {
             this.l = datainputstream.readShort();
         } else {
             this.l = 0;
@@ -53,12 +53,12 @@ public class Packet21PickupSpawn extends Packet {
         this.g = datainputstream.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.h);
         dataoutputstream.writeByte(this.i);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (playerPVN >= 8) {
             dataoutputstream.writeShort(this.l);
         }
 
@@ -74,8 +74,8 @@ public class Packet21PickupSpawn extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 24 : 22;
+        return playerPVN >= 8 ? 24 : 22;
     }
 }

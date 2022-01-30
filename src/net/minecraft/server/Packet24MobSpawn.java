@@ -32,7 +32,7 @@ public class Packet24MobSpawn extends Packet {
         this.h = entityliving.aa();
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.b = datainputstream.readByte();
         this.c = datainputstream.readInt();
@@ -41,14 +41,14 @@ public class Packet24MobSpawn extends Packet {
         this.f = datainputstream.readByte();
         this.g = datainputstream.readByte();
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (playerPVN >= 8) {
             this.i = DataWatcher.a(datainputstream);
         } else {
             this.i = null;
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeByte(this.b);
         dataoutputstream.writeInt(this.c);
@@ -57,7 +57,7 @@ public class Packet24MobSpawn extends Packet {
         dataoutputstream.writeByte(this.f);
         dataoutputstream.writeByte(this.g);
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 8) {
+        if (playerPVN >= 8) {
             this.h.a(dataoutputstream);
         }
     }
@@ -66,8 +66,8 @@ public class Packet24MobSpawn extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         // uberbukkit
-        return Uberbukkit.getPVN() >= 8 ? 20 : 19;
+        return playerPVN >= 8 ? 20 : 19;
     }
 }

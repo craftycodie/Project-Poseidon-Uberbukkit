@@ -22,19 +22,19 @@ public class Packet106Transaction extends Packet {
         nethandler.a(this);
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readByte();
         this.b = datainputstream.readShort();
         this.c = datainputstream.readByte() != 0;
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeByte(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeByte(this.c ? 1 : 0);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 4;
     }
 }

@@ -17,19 +17,19 @@ public class Packet32EntityLook extends Packet30Entity {
         this.g = true;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
-        super.a(datainputstream);
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
+        super.readPacket(datainputstream, playerPVN);
         this.e = datainputstream.readByte();
         this.f = datainputstream.readByte();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
-        super.a(dataoutputstream);
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
+        super.writePacket(dataoutputstream, playerPVN);
         dataoutputstream.writeByte(this.e);
         dataoutputstream.writeByte(this.f);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 6;
     }
 }

@@ -10,19 +10,19 @@ public class Packet12PlayerLook extends Packet10Flying {
         this.hasLook = true;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.yaw = datainputstream.readFloat();
         this.pitch = datainputstream.readFloat();
-        super.a(datainputstream);
+        super.readPacket(datainputstream, playerPVN);
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeFloat(this.yaw);
         dataoutputstream.writeFloat(this.pitch);
-        super.a(dataoutputstream);
+        super.writePacket(dataoutputstream, playerPVN);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 9;
     }
 }

@@ -16,18 +16,18 @@ public class Packet255KickDisconnect extends Packet {
         this.a = s;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
-            this.a = a(datainputstream, 100);
+        if (playerPVN >= 11) {
+            this.a = readString(datainputstream, 100);
         } else {
             this.a = datainputstream.readUTF();
         }
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         // uberbukkit
-        if (Uberbukkit.getPVN() >= 11) {
+        if (playerPVN >= 11) {
             a(this.a, dataoutputstream);
         } else {
             dataoutputstream.writeUTF(this.a);
@@ -38,7 +38,7 @@ public class Packet255KickDisconnect extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return this.a.length();
     }
 }

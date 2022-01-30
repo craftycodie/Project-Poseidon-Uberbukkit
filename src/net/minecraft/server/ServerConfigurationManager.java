@@ -597,6 +597,30 @@ public class ServerConfigurationManager {
         }
     }
 
+    interface PVNComparator {
+        boolean isPVNValid(int pvn);
+    }
+
+    public void sendPacketNearbyWherePVN(double d0, double d1, double d2, double d3, int i, Packet packet, PVNComparator pvnCondition) {
+        for (int j = 0; j < this.players.size(); ++j) {
+            EntityPlayer entityplayer = (EntityPlayer) this.players.get(j);
+
+            if(!pvnCondition.isPVNValid(entityplayer.netServerHandler.playerPVN)) {
+                continue;
+            }
+
+            if (entityplayer.dimension == i) {
+                double d4 = d0 - entityplayer.locX;
+                double d5 = d1 - entityplayer.locY;
+                double d6 = d2 - entityplayer.locZ;
+
+                if (d4 * d4 + d5 * d5 + d6 * d6 < d3 * d3) {
+                    entityplayer.netServerHandler.sendPacket(packet);
+                }
+            }
+        }
+    }
+
     public void j(String s) {
         Packet3Chat packet3chat = new Packet3Chat(s);
 

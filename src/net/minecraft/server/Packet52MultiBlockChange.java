@@ -38,7 +38,7 @@ public class Packet52MultiBlockChange extends Packet {
         }
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.b = datainputstream.readInt();
         this.f = datainputstream.readShort() & '\uffff';
@@ -54,7 +54,7 @@ public class Packet52MultiBlockChange extends Packet {
         datainputstream.readFully(this.e);
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeInt(this.b);
         dataoutputstream.writeShort((short) this.f);
@@ -71,7 +71,7 @@ public class Packet52MultiBlockChange extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 10 + this.f * 4;
     }
 }

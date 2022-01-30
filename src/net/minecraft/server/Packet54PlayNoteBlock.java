@@ -22,7 +22,7 @@ public class Packet54PlayNoteBlock extends Packet {
         this.e = i1;
     }
 
-    public void a(DataInputStream datainputstream) throws IOException {
+    public void readPacket(DataInputStream datainputstream, int playerPVN) throws IOException {
         this.a = datainputstream.readInt();
         this.b = datainputstream.readShort();
         this.c = datainputstream.readInt();
@@ -30,7 +30,7 @@ public class Packet54PlayNoteBlock extends Packet {
         this.e = datainputstream.read();
     }
 
-    public void a(DataOutputStream dataoutputstream) throws IOException {
+    public void writePacket(DataOutputStream dataoutputstream, int playerPVN) throws IOException {
         dataoutputstream.writeInt(this.a);
         dataoutputstream.writeShort(this.b);
         dataoutputstream.writeInt(this.c);
@@ -42,7 +42,7 @@ public class Packet54PlayNoteBlock extends Packet {
         nethandler.a(this);
     }
 
-    public int a() {
+    public int getSize(int playerPVN) {
         return 12;
     }
 }
