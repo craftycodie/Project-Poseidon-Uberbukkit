@@ -646,7 +646,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                             }
                             server.getPluginManager().callEvent(breakEvent);
                             if (!breakEvent.isCancelled()) {
-                                this.player.itemInWorldManager.oldDig(i, j, k);
+                                this.player.itemInWorldManager.oldClick(i, j, k, packet14blockdig.face);
                             }
                         }
                     }
@@ -1070,7 +1070,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             if (this.server.dispatchCommand(player, s.substring(1))) {
                 //Project Poseidon Start
                 //Basic XAuth & Authme Firewall
-                if (s.toLowerCase().startsWith("/register") || s.toLowerCase().startsWith("/login") || s.toLowerCase().startsWith("/changepw") || s.toLowerCase().startsWith("/changepassword") || s.toLowerCase().startsWith("/unregister")) {
+                if (s.toLowerCase().startsWith("/register") || s.toLowerCase().startsWith("/login") || s.toLowerCase().startsWith("/l ") || s.toLowerCase().startsWith("/changepw") || s.toLowerCase().startsWith("/changepassword") || s.toLowerCase().startsWith("/unregister")) {
                     a.info(player.getName() + " issued server command: COMMAND REDACTED");
                 } else {
                     a.info(player.getName() + " issued server command: " + s);
