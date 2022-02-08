@@ -47,11 +47,9 @@ public class BlockSapling extends BlockFlower {
         // uberbukkit
         
 	// Testing growing random tree types with Random call
-	int treeType = random.nextInt(3);
-
-	// 0 - Spruce
-	// 1 - Birch
-	// 2 - Oak
+	int treeType = random.nextInt(10);
+	
+	// This _should_ give both spruce and birch trees a 10% chance each of growing from saplings.
 
 	// If Spruce:
 	if (PoseidonConfig.getInstance().getBoolean("version.worldgen.biomes.generate_spruces", true) && treeType == 0) {
