@@ -502,8 +502,13 @@ public class World implements IBlockAccess {
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
             if (flag) {
                 int l = this.getTypeId(i, j, k);
+                
+                boolean check = false;
+                if (Uberbukkit.getPVN() >= 12) {
+                    check = l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id;
+                }
 
-                if (l == Block.STEP.id || l == Block.SOIL.id || l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id) {
+                if (l == Block.STEP.id || l == Block.SOIL.id || check) {
                     int i1 = this.a(i, j + 1, k, false);
                     int j1 = this.a(i + 1, j, k, false);
                     int k1 = this.a(i - 1, j, k, false);
