@@ -1,6 +1,8 @@
 version: '{build}'
 image: Visual Studio 2019
 
+cache:
+  - /home/appveyor/.m2
 install:
   - ps: .\build_scripts\UpdateBuildVersion.ps1
 before_build:
