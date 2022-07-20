@@ -1,5 +1,6 @@
 version: '{build}'
-image: Visual Studio 2019
+image: ubuntu
+stack: jdk 8
 
 cache:
   - /home/appveyor/.m2
