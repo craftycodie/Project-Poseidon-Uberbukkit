@@ -61,6 +61,8 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("world.settings.block-tree-growth.enabled", true);
         generateConfigOption("world.settings.block-tree-growth.list", "54,63,68");
         generateConfigOption("world.settings.block-tree-growth.info", "This setting allows for server owners to easily block trees growing from automatically destroying certain blocks. The list must be a string with numerical item ids separated by commas.");
+        generateConfigOption("world.settings.block-pistons-pushing-furnaces.info", "This workaround prevents pistons from pushing furnaces which prevents a malicious server crash.");
+        generateConfigOption("world.settings.block-pistons-pushing-furnaces.enabled", true);
         //Release2Beta Settings
         generateConfigOption("settings.release2beta.enable-ip-pass-through", false);
         generateConfigOption("settings.release2beta.proxy-ip", "127.0.0.1");
@@ -111,6 +113,7 @@ public class PoseidonConfig extends Configuration {
         generateConfigOption("version.mechanics.spiders_climb_walls", true);
         generateConfigOption("version.worldgen.ores.world.custom_seed", false);
         generateConfigOption("version.worldgen.ores.world.seed", 0L);
+        generateConfigOption("version.experimental.force_fix_chunk_coords_corruption", false);
         generateConfigOption("version.allow_join.protocol", "14");
         generateConfigOption("version.allow_join.info", "Specify client versions to accept; 6 - a1.2.3_05 to a1.2.6; 7 - b1.0 to b1.1_02; 8 - b1.2 to b1.2_02; 9 - b1.3(_01); 10 - b1.4(_01); 11 - b1.5(_01); 12 - b1.6_test_build_3; 13 - b1.6 to b1.6.6, 14 - b1.7 to b1.7.3");
 
